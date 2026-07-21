@@ -1,3 +1,4 @@
+<img width="951" height="864" alt="image" src="https://github.com/user-attachments/assets/9ff09c4e-4fb7-4c58-b3be-0a516e21f7cf" />
 Echo is my ongoing project inspired by Disney's BDX robots. The goal is to build a compact, expressive, and capable walking robot using NVIDIA edge AI hardware, inexpensive (relatively) actuators, and onboard sensing.
 
 This project will combine reinforcement learning through IsaacSim/IsaacLab, QDD actuators, and my own mechanical design to hopefully develop a walking bipedal robot. 
