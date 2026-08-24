@@ -1,16 +1,16 @@
-﻿Item,Price,Quantity,Total
-RobStride 02 Actuator,$140 ,2,$280 
-RobStride 03 Actuator,$220 ,4,$880 
-RobStride 06 Actuator,$200 ,4,$800 
-NVIDIA Jetson Orin Nano,$249 ,1,$249 
-5000mAh 6S LiPo,$30 ,2,$60 
-Actuator Arm (CNC),$35 ,2,$70 
-Actuator Plates (laserjet),$6 ,12,$72 
-Mic + Speaker,$100 ,1,$100 
-Orbbec 336 Depth Camera,$210 ,1,$210 
-2 in 4 out lever wire splitters,$1 ,10,$5 
-Assorted Screws,$40 ,1,$40 
-PLA/PETG,$10 ,6,$60 
-USB CAN Reader,$10 ,1,$10 
-20A Rubber ,$40 ,1,$40 
-Marine 12 way bus bars,$5 ,2,$10 
+﻿Item,Price,Quantity,Total,
+RobStride 02 Actuator,$120 ,2,$240 ,Found cheaper than MSRP on Aliexpress
+RobStride 03 Actuator,$180 ,4,$720 ,Found cheaper than MSRP on Aliexpress
+RobStride 06 Actuator,$160 ,4,$640 ,Found cheaper than MSRP on Aliexpress
+NVIDIA Jetson Orin Nano,$249 ,1,$249 ,
+5000mAh 6S LiPo,$30 ,2,$60 ,
+Actuator Arm (CNC),$0 ,2,$0 ,Found local business to provide for free
+Actuator Plates (laserjet),$0 ,12,$0 ,Found local business to provide for free
+reSpeaker Flex XVF3800 Circular-4,$40 ,1,$40 ,Used for voice localization and high quality noise supression (used)
+Grove Speaker,$6 ,1,$6 ,
+Orbbec 336 Depth Camera,$210 ,1,$210 ,Less than MSRP as it can be bought used. ($211 vs $284)
+2 in 4 out lever wire splitters (10 pack),$5 ,2,$10 ,
+Assorted Screws,$15 ,1,$15 ,
+USB CAN Reader,$10 ,1,$10 ,
+20A Rubber 1L Bottle,$40 ,1,$40 ,
+Marine 12 way bus bars,$5 ,2,$10 ,
