@@ -42,12 +42,12 @@ To be finished
 * NVIDIA Isaac Lab
 * Isaac Sim
 * ROS 2
-* Python (maybe Java?)
+* Python
 * CUDA
 
 ---
 
-# Planned Features
+# Features
 
 ### Locomotion
 
@@ -61,11 +61,11 @@ To be finished
 
 ### Perception
 
-* [ ] Object detection
-* [ ] Visual SLAM
+* [X] Object detection
+* [X] Visual SLAM
 * [ ] Human tracking
 * [ ] Sound localization
-* [ ] Face recognition
+* [X] Face recognition
 
 ### Intelligence
 
