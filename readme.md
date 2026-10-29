@@ -21,8 +21,7 @@ Echo is designed to operate independently, running off its onboard sensor suite 
 
 ## Computing
 
-To be finished
-
+Onboard Jetson Orin Nano, streaming compressed data to local 3090 running on nearby desktop, communicating over WiFi 6E
 ---
 
 # Actuator Layout
@@ -34,6 +33,10 @@ To be finished
 | Hip Pitch   | RS03     |
 | Knee Pitch  | RS03     |
 | Ankle Pitch | RS02     |
+| Neck Pitch  | RS02     |
+| Head Pitch  | RS05     |
+| Head Roll   | RS05     |
+| Head Yaw    | RS05     |
 
 ---
 
@@ -51,7 +54,7 @@ To be finished
 
 ### Locomotion
 
-* [ ] Reinforcement learning walking policy
+* [X] Reinforcement learning walking policy
 * [ ] Turning
 * [ ] Side stepping
 * [ ] Running
@@ -119,6 +122,7 @@ To be finished
 ```text
 Echo/
 ├── cad/              # Fusion 360 files
+├── models/           # MuJoCo / IsaacLab models
 └── README.md
 
 ---
