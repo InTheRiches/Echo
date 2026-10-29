@@ -1,4 +1,4 @@
-<img width="951" height="864" alt="image" src="https://github.com/user-attachments/assets/9ff09c4e-4fb7-4c58-b3be-0a516e21f7cf" />
+<img width="951" height="864" alt="image" src="https://github.com/InTheRiches/Echo/blob/main/RivetFullBody.png?raw=true" />
 Echo is my ongoing project inspired by Disney's BDX robots. The goal is to build a compact, expressive, and capable walking robot using NVIDIA edge AI hardware, inexpensive (relatively) actuators, and onboard sensing.
 
 This project will combine reinforcement learning through IsaacSim/IsaacLab, QDD actuators, and my own mechanical design to hopefully develop a walking bipedal robot. 
@@ -21,8 +21,7 @@ Echo is designed to operate independently, running off its onboard sensor suite 
 
 ## Computing
 
-To be finished
-
+Onboard Jetson Orin Nano, streaming compressed data to local 3090 running on nearby desktop, communicating over WiFi 6E
 ---
 
 # Actuator Layout
@@ -34,6 +33,10 @@ To be finished
 | Hip Pitch   | RS03     |
 | Knee Pitch  | RS03     |
 | Ankle Pitch | RS02     |
+| Neck Pitch  | RS02     |
+| Head Pitch  | RS05     |
+| Head Roll   | RS05     |
+| Head Yaw    | RS05     |
 
 ---
 
@@ -51,7 +54,7 @@ To be finished
 
 ### Locomotion
 
-* [ ] Reinforcement learning walking policy
+* [X] Reinforcement learning walking policy
 * [ ] Turning
 * [ ] Side stepping
 * [ ] Running
@@ -119,6 +122,7 @@ To be finished
 ```text
 Echo/
 ├── cad/              # Fusion 360 files
+├── models/           # MuJoCo / IsaacLab models
 └── README.md
 
 ---
