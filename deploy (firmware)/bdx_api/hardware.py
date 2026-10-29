@@ -1,0 +1,759 @@
+import sys
+import time
+import enum
+import math
+import struct
+import threading
+import atexit
+import numpy as np
+import can
+import serial
+
+from bdx_api.config import load_policy_config, load_isaaclab_config, STANDUP_GAINS, POLICY_GAINS_FALLBACK, RobotPolicyConfig
+from bdx_api.deployment import load_deployment_config
+from bdx_api.can_bus import open_can_bus, validate_can_transport
+from bdx_api.interface import RobotBackend
+from pathlib import Path
+from scipy.spatial.transform import Rotation
+
+
+# ==========================================
+# Motor Protocol (MIT Mode)
+# ==========================================
+
+MUX_CONTROL = 0x01
+
+class MotorMsg(enum.Enum):
+    Feedback = 2
+
+# Motor type parameters for scaling
+MOTOR_TYPE_PARAMS = {
+    "O2": {
+        "P_MIN": -12.57, "P_MAX": 12.57,
+        "V_MIN": -44.0,  "V_MAX": 44.0,
+        "T_MIN": -17.0,  "T_MAX": 17.0,
+        "KP_MIN": 0.0,   "KP_MAX": 500.0,
+        "KD_MIN": 0.0,   "KD_MAX": 5.0,
+    },
+    "O3": {
+        "P_MIN": -12.57, "P_MAX": 12.57,
+        "V_MIN": -20.0,  "V_MAX": 20.0,
+        "T_MIN": -60.0,  "T_MAX": 60.0,
+        "KP_MIN": 0.0,   "KP_MAX": 5000.0,
+        "KD_MIN": 0.0,   "KD_MAX": 100.0,
+    },
+    "O6": {
+        "P_MIN": -12.57, "P_MAX": 12.57,
+        "V_MIN": -50.0,  "V_MAX": 50.0,
+        "T_MIN": -36.0,  "T_MAX": 36.0,
+        "KP_MIN": 0.0,   "KP_MAX": 5000.0,
+        "KD_MIN": 0.0,   "KD_MAX": 100.0,
+    },
+    "O5": {
+        "P_MIN": -12.57, "P_MAX": 12.57,
+        "V_MIN": -50.0,  "V_MAX": 50.0,
+        "T_MIN": -5.5,   "T_MAX": 5.5,
+        "KP_MIN": 0.0,   "KP_MAX": 500.0,
+        "KD_MIN": 0.0,   "KD_MAX": 5.0,
+    },
+}
+
+MUX_ENABLE = 0x03
+MUX_DISABLE = 0x04
+HOST_ID = 0xFD
+
+def _scale_to_u16(value, v_min, v_max):
+    return int(65535.0 * (np.clip(value, v_min, v_max) - v_min) / (v_max - v_min))
+
+def _send_mit_command(bus, motor_id, pos_rad, vel_rad_s, kp, kd, torque_nm, params):
+    """Send a single MIT mode position command to a motor."""
+    angle_u16 = _scale_to_u16(pos_rad, params["P_MIN"], params["P_MAX"])
+    vel_u16 = _scale_to_u16(vel_rad_s, params["V_MIN"], params["V_MAX"])
+    kp_u16 = _scale_to_u16(kp, params["KP_MIN"], params["KP_MAX"])
+    kd_u16 = _scale_to_u16(kd, params["KD_MIN"], params["KD_MAX"])
+    torque_u16 = _scale_to_u16(torque_nm, params["T_MIN"], params["T_MAX"])
+
+    arb_id = ((MUX_CONTROL & 0xFF) << 24) | ((torque_u16 & 0xFFFF) << 8) | (motor_id & 0xFF)
+    data = struct.pack(">HHHH", angle_u16, vel_u16, kp_u16, kd_u16)
+
+    try:
+        bus.send(can.Message(arbitration_id=arb_id, data=data, is_extended_id=True, dlc=8))
+    except can.CanError as e:
+        print(f"[CAN ERROR] Motor {motor_id}: {e}", file=sys.stderr)
+
+def _flush_bus(bus):
+    while True:
+        msg = bus.recv(timeout=0.01)
+        if msg is None:
+            break
+
+
+# ==========================================
+# Xsens MTi-3 IMU
+# ==========================================
+
+class MTi_Serial_IMU:
+    def __init__(self, port="/dev/ttyUSB0", baudrate=2000000):
+        self.port = port
+        self.baudrate = baudrate
+        self.latest_data = {
+            "gyro": np.zeros(3),
+            "projected_gravity": np.array([0.0, 0.0, -1.0]),
+        }
+        self.lock = threading.Lock()
+        self.running = False
+        self.serial = None
+        self.thread = None
+
+    def _compute_checksum(self, data: bytes) -> int:
+        return (-sum(data)) & 0xFF
+
+    def _send_message(self, mid: int, payload: bytes = b''):
+        msg = bytes([0xFF, mid, len(payload)]) + payload
+        cs = self._compute_checksum(msg)
+        self.serial.write(bytes([0xFA]) + msg + bytes([cs]))
+
+    def _configure_outputs(self):
+        self._send_message(0x30)  # GoToConfig
+        time.sleep(0.1)
+        self.serial.reset_input_buffer()
+        payload = bytes([
+            0x20, 0x10, 0x00, 0x32,  # Quaternion (float32), 50 Hz
+            0x80, 0x20, 0x00, 0x32,  # Rate of Turn (float32), 50 Hz
+        ])
+        self._send_message(0xC0, payload)
+        time.sleep(0.2)
+        self._send_message(0x10)  # GoToMeasurement
+        time.sleep(0.1)
+        self.serial.reset_input_buffer()
+        print("[MTi-3] Output configuration set: Quaternion + RateOfTurn @ 50 Hz")
+
+    def start(self):
+        try:
+            self.serial = serial.Serial(self.port, self.baudrate, timeout=0.1)
+            self.serial.reset_input_buffer()
+        except Exception as e:
+            print(f"[FATAL] Failed to open MTi-3 on {self.port}: {e}", file=sys.stderr)
+            return False
+        self._configure_outputs()
+        self.running = True
+        self.thread = threading.Thread(target=self._read_loop, daemon=True)
+        self.thread.start()
+        print(f"[MTi-3] Connected at {self.baudrate} baud on {self.port}")
+        return True
+
+    def _read_loop(self):
+        while self.running:
+            try:
+                if self.serial.read(1) == b'\xFA' and self.serial.read(1) == b'\xFF' and self.serial.read(1) == b'\x36':
+                    length_bytes = self.serial.read(1)
+                    if not length_bytes: continue
+                    length = length_bytes[0]
+                    data = self.serial.read(length)
+                    checksum_bytes = self.serial.read(1)
+                    if len(data) < length or not checksum_bytes: continue
+                    if (0xFF + 0x36 + length + sum(data) + checksum_bytes[0]) & 0xFF != 0: continue
+
+                    idx = 0
+                    gyro, quat = None, None
+                    while idx < length:
+                        group = data[idx]; type_id = data[idx+1]; size = data[idx+2]
+                        payload = data[idx+3 : idx+3+size]
+                        if group == 0x80 and (type_id == 0x20 or type_id == 0x23) and size in (12, 24):
+                            gyro = np.array(struct.unpack(">3f" if size == 12 else ">3d", payload))
+                        elif group == 0x20 and type_id == 0x10 and size == 16:
+                            q = struct.unpack(">4f", payload)
+                            quat = Rotation.from_quat([q[1], q[2], q[3], q[0]]).inv().apply([0.0, 0.0, -1.0])
+                        idx += 3 + size
+
+                    with self.lock:
+                        if gyro is not None: self.latest_data["gyro"] = gyro
+                        if quat is not None: self.latest_data["projected_gravity"] = quat
+            except Exception:
+                pass
+
+    def stop(self):
+        self.running = False
+        if self.thread: self.thread.join()
+        if self.serial: self.serial.close()
+
+    def get_latest_data(self):
+        with self.lock:
+            return {
+                "gyro": self.latest_data["gyro"].copy(),
+                "projected_gravity": self.latest_data["projected_gravity"].copy(),
+            }
+
+
+# ==========================================
+# Joint Definition
+# ==========================================
+
+JOINT_LIMITS = {
+    "Left_Hip_Yaw":    (-0.4, 0.4),
+    "Left_Hip_Roll":   (-0.34, 0.34),
+    "Left_Hip_Pitch":  (-0.75, 0.7),
+    "Left_Knee":       (-0.94, 1.3),
+    "Left_Ankle":      (-0.84, 1.2),
+    "Right_Hip_Yaw":   (-0.4, 0.4),
+    "Right_Hip_Roll":  (-0.34, 0.34),
+    "Right_Hip_Pitch": (-0.75, 0.7),
+    "Right_Knee":      (-1.3, 0.94),
+    "Right_Ankle":     (-1.2, 0.84),
+    "Neck_Pitch":      (-0.35, 0.87),
+    "Head_Pitch":      (-0.87, 0.87),
+    "Head_Yaw":        (-1.05, 1.05),
+    "Head_Roll":       (-0.87, 0.87),
+}
+
+HEAD_HOLD_JOINTS = {"Neck_Pitch", "Head_Pitch", "Head_Yaw", "Head_Roll"}
+LPF_ALPHA_POS = 1.0  # Pass raw positions (No delay)
+LPF_ALPHA_VEL = 1.0  # Filter velocities (Smooths out the noise)
+
+# Safety: enter damping mode if robot tilts more than this many degrees from upright
+FALL_ANGLE_DEG = 45.0
+FALL_THRESHOLD = math.cos(math.radians(FALL_ANGLE_DEG))  # 0.707
+# Safety: enter damping mode if any policy joint target exceeds this (rad)
+MAX_TARGET_RAD = 1.5
+
+
+# ==========================================
+# Hardware Backend
+# ==========================================
+class HardwareInitializationCancelled(Exception):
+    """Raised when the operator declines the pre-enable hardware review."""
+
+
+class HardwareBackend(RobotBackend):
+    def __init__(self, model_path: Path, loop_dt: float = 0.005,
+                 standup_duration: float = 2.0, imu_port: str = "/dev/ttyUSB0",
+                 imu_backend: str = "orbbec",
+                 legs_only: bool = False, use_imu: bool = True, cfg_override: RobotPolicyConfig = None,
+                 deployment_config_path: str | Path | None = None,
+                 can_interface: str = "socketcan", slcan_channel: str | None = None,
+                 slcan_bitrate: int = 1_000_000, slcan_tty_baudrate: int = 115_200,
+                 confirm_initial_positions: bool = False):
+
+        self.use_imu = use_imu
+        self._deployment_path, self._deployment = load_deployment_config(deployment_config_path)
+        self._can_channels = list(self._deployment["can_channels"])
+        self._can_interface = can_interface
+        self._slcan_channel = slcan_channel
+        self._slcan_bitrate = slcan_bitrate
+        self._slcan_tty_baudrate = slcan_tty_baudrate
+        validate_can_transport(
+            self._can_channels,
+            can_interface=self._can_interface,
+            slcan_channel=self._slcan_channel,
+        )
+
+        self.cfg = cfg_override if cfg_override is not None else load_policy_config(model_path)
+
+        # Detect degenerate gains (Kp=1.0, Kd=0.0) and fall back to known-good values
+        stiffness_degenerate = all(abs(k - 1.0) < 1e-6 for k in self.cfg.joint_stiffness)
+        damping_degenerate   = all(abs(k) < 1e-6     for k in self.cfg.joint_damping)
+        if stiffness_degenerate and damping_degenerate:
+            print("[WARNING] ONNX model has degenerate gains (Kp=1.0, Kd=0.0). Using POLICY_GAINS_FALLBACK.")
+            self._policy_kp = [POLICY_GAINS_FALLBACK[n][0] for n in self.cfg.joint_names]
+            self._policy_kd = [POLICY_GAINS_FALLBACK[n][1] for n in self.cfg.joint_names]
+        else:
+            self._policy_kp = list(self.cfg.joint_stiffness)
+            self._policy_kd = list(self.cfg.joint_damping)
+        self.loop_dt = loop_dt
+        self._running = True
+        self._last_time = time.time()
+        self.legs_only = legs_only
+
+        # Debug Freq Counters
+        self._debug_tick_count = 0
+        self._debug_start_time = time.time()
+        self._actual_cmd_freq = 0.0
+        self._policy_authority = 1.0
+        self._buses_closed = False
+
+        # Asimov Latency Tracking
+        self._cmd_sent_time = {}
+        self._latencies = {}
+
+        # --- NEW: Identify policy joints vs ALL physical joints ---
+        self.policy_joints = self.cfg.joint_names
+        self.num_policy_joints = len(self.policy_joints)
+        self.all_joint_names = list(self.policy_joints)
+
+        # If --legs is flagged, hold all head/neck joints at 0 with standup gains
+        if self.legs_only:
+            for head_joint in ["Neck_Pitch", "Head_Pitch", "Head_Yaw", "Head_Roll"]:
+                if head_joint not in self.all_joint_names:
+                    self.all_joint_names.append(head_joint)
+
+        self.num_joints = len(self.all_joint_names)
+
+        self._joint_wiring =[]
+        self._joint_directions = []
+        for name in self.all_joint_names:
+            name = name.strip()
+            entry = self._deployment["joints"].get(name)
+            if entry is None:
+                raise ValueError(f"Policy joint '{name}' has no entry in config/rivet_deployment.yaml.")
+            if not entry.get("id_verified", False):
+                raise RuntimeError(f"Motor ID for {name} is not verified; run scripts/commission_rivet.py verify-ids first.")
+            if not entry.get("direction_verified", False):
+                raise RuntimeError(f"Motor direction for {name} is not verified; run scripts/commission_rivet.py check-directions first.")
+            bus_idx = self._can_channels.index(entry["can_interface"])
+            self._joint_wiring.append((bus_idx, entry["motor_id"], entry["motor_type"]))
+            self._joint_directions.append(entry.get("direction", 1))
+
+        self._motor_type_by_id = {}
+        for bus_idx, motor_id, motor_type in self._joint_wiring:
+            self._motor_type_by_id[motor_id] = motor_type
+            self._latencies[motor_id] =[]
+
+        print(f"Initializing CAN buses using {self._can_interface}...")
+        self.buses =[]
+        for ch in self._can_channels:
+            bus = open_can_bus(
+                ch,
+                self._can_channels,
+                can_interface=self._can_interface,
+                slcan_channel=self._slcan_channel,
+                slcan_bitrate=self._slcan_bitrate,
+                slcan_tty_baudrate=self._slcan_tty_baudrate,
+            )
+            self.buses.append(bus)
+        atexit.register(self._shutdown_buses)
+
+        self._motor_ids = set()
+        for bus_idx, motor_id, _ in self._joint_wiring:
+            self._motor_ids.add(motor_id)
+
+        self._motor_states = {
+            motor_id: {"pos": 0.0, "vel": 0.0, "updated_at": 0.0}
+            for motor_id in self._motor_ids
+        }
+
+        self._filtered_positions = np.zeros(self.num_joints, dtype=np.float32)
+        self._filtered_velocities = np.zeros(self.num_joints, dtype=np.float32)
+        self._initialized_filter = False
+
+        # Real deploy can review encoder readings before IMU startup, enabling,
+        # or any position/velocity/torque command is sent.
+        if confirm_initial_positions:
+            self._confirm_initial_positions()
+
+        print("Initializing IMU...")
+        if self.use_imu:
+            if imu_backend == "orbbec":
+                from bdx_api.orbbec_imu import OrbbecIMU
+
+                imu_config = self._deployment.get("imu", {})
+                if not isinstance(imu_config, dict):
+                    raise ValueError("The deployment map's imu section must be a YAML mapping")
+                self.imu = OrbbecIMU(
+                    sensor_to_base_rotation=imu_config.get("sensor_to_base_rotation"),
+                    stale_after_s=float(imu_config.get("stale_after_s", 0.25)),
+                    gravity_time_constant_s=float(imu_config.get("gravity_time_constant_s", 0.5)),
+                    gyro_bias_samples=int(imu_config.get("gyro_bias_samples", 50)),
+                )
+            elif imu_backend == "xsens":
+                self.imu = MTi_Serial_IMU(port=imu_port)
+            else:
+                raise ValueError(f"Unsupported IMU backend: {imu_backend!r}")
+            if not self.imu.start():
+                raise RuntimeError("IMU initialization failed")
+            atexit.register(self.imu.stop)
+        else:
+            print("[WARN] IMU disabled. Using dummy values.")
+            self.imu = None
+
+        print("Enabling all motors...")
+        time.sleep(0.5)
+        enabled_on_bus = {}
+        for bus_idx, motor_id, _ in self._joint_wiring:
+            if bus_idx not in enabled_on_bus:
+                enabled_on_bus[bus_idx] = set()
+            if motor_id not in enabled_on_bus[bus_idx]:
+                enable_id = (MUX_ENABLE << 24) | (HOST_ID << 8) | motor_id
+                self.buses[bus_idx].send(
+                    can.Message(arbitration_id=enable_id, is_extended_id=True, dlc=8)
+                )
+                enabled_on_bus[bus_idx].add(motor_id)
+        # Send zero-torque MIT commands to trigger feedback so we get real positions
+        for bus_idx, motor_id, motor_type in self._joint_wiring:
+            params = MOTOR_TYPE_PARAMS[motor_type]
+            _send_mit_command(self.buses[bus_idx], motor_id, 0.0, 0.0, 0.0, 0.0, 0.0, params)
+        time.sleep(0.1)
+
+        self._update_motor_states()
+        stale_joints = [
+            name for name, (_, motor_id, _) in zip(self.all_joint_names, self._joint_wiring)
+            if self._motor_states[motor_id]["updated_at"] == 0
+            or time.time() - self._motor_states[motor_id]["updated_at"] > 1.0
+        ]
+        if stale_joints:
+            self._shutdown_buses()
+            raise RuntimeError(
+                "No fresh CAN feedback for: " + ", ".join(stale_joints)
+                + ". Check CAN wiring, motor IDs, and power before deployment."
+            )
+        for i, (bus_idx, motor_id, _) in enumerate(self._joint_wiring):
+            self._filtered_positions[i] = self._motor_states[motor_id]["pos"] * self._joint_directions[i]
+        self._initialized_filter = True
+
+        self._standup_duration = standup_duration
+        self._in_damping_mode = False
+        # Keep the measured pose supported while the operator reviews the ready prompt.
+        self._send_targets(self._filtered_positions.copy(), use_standup_gains=True)
+        print("\nHardware backend ready.")
+
+    def _confirm_initial_positions(self) -> None:
+        try:
+            from Robstride.client import Client
+        except Exception:
+            self._close_buses_without_motor_commands()
+            raise
+
+        print("\n" + "=" * 72)
+        print("  INITIAL MOTOR ANGLE REVIEW (motors remain disabled)")
+        print("=" * 72)
+        print("Reading each configured joint's reported mechpos. This is a read-only check.")
+
+        clients = {
+            bus_idx: Client(self.buses[bus_idx], retry_count=0, recv_timeout=1.0)
+            for bus_idx in range(len(self.buses))
+        }
+        policy_targets = np.zeros(self.num_joints, dtype=np.float32)
+        policy_targets[:self.num_policy_joints] = self.cfg.default_joint_pos
+        readings = []
+
+        for index, (name, wiring, direction) in enumerate(
+            zip(self.all_joint_names, self._joint_wiring, self._joint_directions)
+        ):
+            bus_idx, motor_id, _motor_type = wiring
+            channel = self._can_channels[bus_idx]
+            try:
+                _flush_bus(self.buses[bus_idx])
+                raw_angle_rad = float(clients[bus_idx].read_param(motor_id, "mechpos"))
+                if not math.isfinite(raw_angle_rad):
+                    raise ValueError(f"non-finite mechpos value: {raw_angle_rad}")
+            except Exception as exc:
+                self._close_buses_without_motor_commands()
+                raise RuntimeError(
+                    f"Could not read {name} on {channel} ID {motor_id} before enabling motors: {exc}. "
+                    "No motor was enabled. Check the CAN connection and configured ID, then retry."
+                ) from exc
+
+            policy_angle_rad = raw_angle_rad * direction
+            target_rad = float(policy_targets[index])
+            readings.append((
+                name, channel, motor_id,
+                math.degrees(raw_angle_rad),
+                math.degrees(policy_angle_rad),
+                math.degrees(target_rad),
+                math.degrees(policy_angle_rad - target_rad),
+            ))
+
+        print("\nJoint                  CAN ID   Reported   Policy-coord   Stand target   Offset")
+        print("                              deg        deg            deg            deg")
+        for name, channel, motor_id, raw_deg, policy_deg, target_deg, offset_deg in readings:
+            print(
+                f"{name:<22} {channel} {motor_id:>3}"
+                f" {raw_deg:>9.2f} {policy_deg:>13.2f} {target_deg:>14.2f} {offset_deg:>10.2f}"
+            )
+
+        print("\nThe policy-coordinate angle applies the configured direction. Offset is the difference")
+        print("from the policy's standing target. Compare these readings with the robot's actual pose;")
+        print("encoder readings alone cannot detect a zero set at the wrong physical pose.")
+        print("\nSecure/support the robot, clear the movement area, and keep the emergency stop ready.")
+        print("Continuing enables the motors and initially holds the measured pose. The next")
+        print("'READY TO STAND' confirmation starts movement toward the listed standing targets.")
+        try:
+            confirmation = input("Type ANGLES OK to continue, or anything else to cancel: ")
+        except (KeyboardInterrupt, EOFError):
+            self._close_buses_without_motor_commands()
+            raise HardwareInitializationCancelled() from None
+
+        if confirmation.strip() != "ANGLES OK":
+            self._close_buses_without_motor_commands()
+            raise HardwareInitializationCancelled()
+
+    def _close_buses_without_motor_commands(self) -> None:
+        """Close CAN handles without sending enable, disable, or motor targets."""
+        if getattr(self, "_buses_closed", False):
+            return
+        self._buses_closed = True
+        for bus in getattr(self, "buses", []):
+            try:
+                bus.shutdown()
+            except Exception:
+                pass
+
+    def _shutdown_buses(self):
+        if getattr(self, "_buses_closed", False):
+            return
+        self._buses_closed = True
+        print("Disabling all motors...")
+        disabled = set()
+        for bus_idx, motor_id, _ in self._joint_wiring:
+            if motor_id not in disabled:
+                disable_id = (MUX_DISABLE << 24) | (HOST_ID << 8) | motor_id
+                try:
+                    self.buses[bus_idx].send(
+                        can.Message(arbitration_id=disable_id, is_extended_id=True, dlc=8)
+                    )
+                except Exception:
+                    pass
+                disabled.add(motor_id)
+
+        for bus in getattr(self, "buses", []):
+            try:
+                bus.shutdown()
+            except Exception:
+                pass
+        print("CAN buses shut down.")
+
+    def _update_motor_states(self):
+        for bus in self.buses:
+            while True:
+                msg = bus.recv(timeout=0)
+                if msg is None: break
+                if msg.is_error_frame: continue
+                try:
+                    motor_id = (msg.arbitration_id & 0xFF00) >> 8
+                    msg_type = (msg.arbitration_id & 0x1F000000) >> 24
+                except Exception: continue
+                if msg_type != MotorMsg.Feedback.value: continue
+                if motor_id not in self._motor_states: continue
+
+                now = time.perf_counter()
+                if motor_id in self._cmd_sent_time:
+                    lat = now - self._cmd_sent_time[motor_id]
+                    self._latencies[motor_id].append(lat)
+                    if len(self._latencies[motor_id]) > 100:
+                        self._latencies[motor_id].pop(0)
+
+                motor_type = self._motor_type_by_id.get(motor_id, "O3")
+                params = MOTOR_TYPE_PARAMS[motor_type]
+
+                try:
+                    angle_raw = struct.unpack(">H", msg.data[0:2])[0]
+                    p_range = params["P_MAX"] - params["P_MIN"]
+                    pos_rad = (float(angle_raw) / 65535.0) * p_range + params["P_MIN"]
+
+                    vel_raw = struct.unpack(">H", msg.data[2:4])[0]
+                    v_range = params["V_MAX"] - params["V_MIN"]
+                    vel_rps = (float(vel_raw) / 65535.0) * v_range + params["V_MIN"]
+
+                    self._motor_states[motor_id]["pos"] = pos_rad
+                    self._motor_states[motor_id]["vel"] = vel_rps
+                    self._motor_states[motor_id]["updated_at"] = time.time()
+                except (struct.error, IndexError):
+                    pass
+
+    def _read_and_filter(self):
+        self._update_motor_states()
+
+        for i, (bus_idx, motor_id, _) in enumerate(self._joint_wiring):
+            raw_pos = self._motor_states[motor_id]["pos"]
+            raw_vel = self._motor_states[motor_id]["vel"]
+            direction = self._joint_directions[i]
+            raw_pos *= direction
+            raw_vel *= direction
+
+            if self._initialized_filter:
+                # Use POS alpha for positions (1.0 = raw)
+                self._filtered_positions[i] = (LPF_ALPHA_POS * raw_pos + (1.0 - LPF_ALPHA_POS) * self._filtered_positions[i])
+                # Use VEL alpha for velocities (0.1 = smoothed)
+                self._filtered_velocities[i] = (LPF_ALPHA_VEL * raw_vel + (1.0 - LPF_ALPHA_VEL) * self._filtered_velocities[i])
+            else:
+                self._filtered_positions[i] = raw_pos
+                self._filtered_velocities[i] = raw_vel
+
+    def _enter_damping_mode(self, reason: str):
+        """Latch into damping mode (kp=0, kd=1). Prints once and stays latched."""
+        if not self._in_damping_mode:
+            print(f"\n[SAFETY TRIGGERED] {reason}")
+            print("[SAFETY] Entering damping mode — kp=0, kd=1 on all motors. Restart required.")
+            self._in_damping_mode = True
+
+    def _send_targets(self, targets: np.ndarray, use_standup_gains: bool = False):
+        # ---- Safety checks (policy mode only, not during standup/hold) ----
+        if not use_standup_gains and not self._in_damping_mode:
+            if self.use_imu and hasattr(self.imu, "is_fresh") and not self.imu.is_fresh():
+                self._enter_damping_mode("IMU data is stale; policy control has been stopped")
+
+            # Check 1: fall detection via projected gravity
+            if self.use_imu and not self._in_damping_mode:
+                pg = self.get_projected_gravity()
+                gz = float(pg[2])  # upright = -1.0; fallen > 45° means gz > -0.707
+                if gz > -FALL_THRESHOLD:
+                    self._enter_damping_mode(
+                        f"Robot has fallen! projected_gravity_z={gz:.3f} (threshold={-FALL_THRESHOLD:.3f})"
+                    )
+
+            # Check 2: unreasonable target position
+            if not self._in_damping_mode:
+                for i in range(self.num_policy_joints):
+                    t = float(targets[i])
+                    if abs(t) > MAX_TARGET_RAD:
+                        name = self.all_joint_names[i].strip()
+                        self._enter_damping_mode(
+                            f"Target for {name} = {t:.3f} rad exceeds ±{MAX_TARGET_RAD} rad"
+                        )
+                        break
+
+        # ---- Damping mode: kp=0, kd=1 at current encoder position ----
+        if self._in_damping_mode and not use_standup_gains:
+            for i, (bus_idx, motor_id, motor_type) in enumerate(self._joint_wiring):
+                params = MOTOR_TYPE_PARAMS[motor_type]
+                current_pos = self._motor_states[motor_id]["pos"]
+                _send_mit_command(
+                    self.buses[bus_idx], motor_id,
+                    pos_rad=current_pos, vel_rad_s=0.0,
+                    kp=0.0, kd=1.0, torque_nm=0.0,
+                    params=params,
+                )
+            return
+
+        # ---- Normal operation ----
+        for i, (bus_idx, motor_id, motor_type) in enumerate(self._joint_wiring):
+            name = self.all_joint_names[i].strip()
+            params = MOTOR_TYPE_PARAMS[motor_type]
+
+            # Name-based check so head joints are fixed even if present in the policy
+            is_fixed_head_joint = self.legs_only and name in HEAD_HOLD_JOINTS
+
+            if use_standup_gains or is_fixed_head_joint:
+                if name in STANDUP_GAINS:
+                    kp, kd = STANDUP_GAINS[name]
+                else:
+                    kp, kd = 20.0, 1.0  # Safe fallback
+            else:
+                safe_kp, safe_kd = STANDUP_GAINS.get(name, (20.0, 1.0))
+                authority = self._policy_authority
+                kp = safe_kp + authority * (self._policy_kp[i] - safe_kp)
+                kd = safe_kd + authority * (self._policy_kd[i] - safe_kd)
+
+            pos = float(targets[i])
+            if is_fixed_head_joint:
+                pos = 0.0
+            if name in JOINT_LIMITS and not is_fixed_head_joint:
+                lo, hi = JOINT_LIMITS[name]
+                pos = float(np.clip(pos, lo, hi))
+
+            self._cmd_sent_time[motor_id] = time.perf_counter()
+
+            _send_mit_command(
+                self.buses[bus_idx], motor_id,
+                pos_rad=pos * self._joint_directions[i], vel_rad_s=0.0,
+                kp=kp, kd=kd, torque_nm=0.0,
+                params=params,
+            )
+
+    def standup(self, duration: float = 2.0) -> None:
+        dur = duration if duration else self._standup_duration
+        print(f"Standing up over {dur}s...")
+
+        # Poll all motors to get fresh actual positions before interpolating
+        for bus_idx, motor_id, motor_type in self._joint_wiring:
+            params = MOTOR_TYPE_PARAMS[motor_type]
+            _send_mit_command(self.buses[bus_idx], motor_id, 0.0, 0.0, 0.0, 0.0, 0.0, params)
+        time.sleep(0.1)
+
+        self._read_and_filter()
+        start_pos = self._filtered_positions.copy()
+        
+        # Initialize full 14 joints to 0.0, then overwrite the policy joints with their default
+        target_pos = np.zeros(self.num_joints, dtype=np.float32)
+        target_pos[:self.num_policy_joints] = self.cfg.default_joint_pos
+
+        num_steps = int(dur / 0.02)
+        for step in range(num_steps + 1):
+            alpha = step / float(num_steps)
+            interp = (1.0 - alpha) * start_pos + alpha * target_pos
+            self._send_targets(interp, use_standup_gains=True)
+            time.sleep(0.02)
+
+        print("Standup complete.")
+
+    def hold_standing_tick(self) -> None:
+        target_pos = np.zeros(self.num_joints, dtype=np.float32)
+        target_pos[:self.num_policy_joints] = self.cfg.default_joint_pos
+        self._read_and_filter()
+        self._send_targets(target_pos, use_standup_gains=True)
+        time.sleep(0.02)
+
+    def activate_policy_gains(self) -> None:
+        print("\n[DEBUG] Activating Policy: Flushing CAN Bus to prevent cold-start jerk...")
+        for bus in self.buses:
+            _flush_bus(bus)
+        self._read_and_filter()
+        print("[DEBUG] Hardware buffers flushed.")
+
+    def set_policy_authority(self, authority: float) -> None:
+        """Blend from standing gains to policy gains at a bounded authority."""
+        if not math.isfinite(authority) or not 0.0 <= authority <= 1.0:
+            raise ValueError("Policy authority must be between 0 and 1")
+        self._policy_authority = float(authority)
+        print(f"[POLICY] Authority set to {self._policy_authority:.0%}.")
+
+    def get_imu_angular_velocity(self) -> np.ndarray: 
+        if self.use_imu:
+            return self.imu.get_latest_data()["gyro"]
+        return np.zeros(3)
+
+    def get_projected_gravity(self) -> np.ndarray: 
+        if self.use_imu:
+            return self.imu.get_latest_data()["projected_gravity"]
+        return np.array([0.0, 0.0, -1.0])
+    
+    def get_joint_positions(self, joint_ids: np.ndarray) -> np.ndarray:
+        self._read_and_filter()
+        return self._filtered_positions[joint_ids].copy()
+
+    def get_joint_velocities(self, joint_ids: np.ndarray) -> np.ndarray:
+        return self._filtered_velocities[joint_ids].copy()
+
+    def set_joint_targets(self, targets: np.ndarray) -> None:
+        self._send_targets(targets)
+
+    def step(self) -> None:
+        elapsed = time.time() - self._last_time
+        sleep_time = self.loop_dt - elapsed
+        if sleep_time > 0:
+            time.sleep(sleep_time)
+        self._last_time = time.time()
+
+        self._debug_tick_count += 1
+        if self._debug_tick_count >= 50:
+            now = time.time()
+            duration = now - self._debug_start_time
+            if duration > 0:
+                self._actual_cmd_freq = self._debug_tick_count / duration
+            self._debug_tick_count = 0
+            self._debug_start_time = now
+
+    def is_running(self) -> bool: return self._running
+
+    def get_joint_map(self, joint_names: list[str]) -> np.ndarray:
+        # Maps the policy's requested joints into our backend's internal list
+        return np.array([self.all_joint_names.index(n) for n in joint_names], dtype=int)
+
+    def get_default_pos_array(self, num_actuators: int) -> np.ndarray:
+        # Even if the policy only asks for 10 joints, return the full 14 array size so the runner pads it for us
+        return np.zeros(self.num_joints, dtype=np.float32)
+
+    def shutdown(self) -> None:
+        if self.imu is not None:
+            try:
+                self.imu.stop()
+            except Exception:
+                pass
+        self._shutdown_buses()
+
+    def get_actual_frequency(self) -> float: return self._actual_cmd_freq
+    def get_latency_stats(self):
+        stats = {}
+        for mid, lats in self._latencies.items():
+            if len(lats) > 0:
+                stats[mid] = {"avg": np.mean(lats)*1000.0, "max": np.max(lats)*1000.0, "std": np.std(lats)*1000.0}
+        return stats

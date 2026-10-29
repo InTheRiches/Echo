@@ -1,0 +1,91 @@
+policy_model: models/rivet_standing.onnx
+can_channels:
+- can1
+imu:
+  sensor_to_base_rotation:
+  - - 1.0
+    - 0.0
+    - 0.0
+  - - 0.0
+    - 1.0
+    - 0.0
+  - - 0.0
+    - 0.0
+    - 1.0
+  stale_after_s: 0.25
+  gravity_time_constant_s: 0.5
+  gyro_bias_samples: 50
+joints:
+  Left_Hip_Yaw:
+    can_interface: can1
+    motor_id: 2
+    motor_type: O6
+    direction: 1
+    id_verified: true
+    direction_verified: true
+  Left_Hip_Roll:
+    can_interface: can1
+    motor_id: 3
+    motor_type: O6
+    direction: 1
+    id_verified: true
+    direction_verified: true
+  Left_Hip_Pitch:
+    can_interface: can1
+    motor_id: 9
+    motor_type: O3
+    direction: 1
+    id_verified: true
+    direction_verified: true
+  Left_Knee:
+    can_interface: can1
+    motor_id: 8
+    motor_type: O3
+    direction: 1
+    id_verified: true
+    direction_verified: true
+  Left_Ankle:
+    can_interface: can1
+    motor_id: 7
+    motor_type: O2
+    direction: 1
+    id_verified: true
+    direction_verified: true
+  Right_Hip_Yaw:
+    can_interface: can1
+    motor_id: 1
+    motor_type: O6
+    direction: 1
+    id_verified: true
+    direction_verified: true
+  Right_Hip_Roll:
+    can_interface: can1
+    motor_id: 4
+    motor_type: O6
+    direction: 1
+    id_verified: true
+    direction_verified: true
+  Right_Hip_Pitch:
+    can_interface: can1
+    motor_id: 6
+    motor_type: O3
+    direction: 1
+    id_verified: true
+    direction_verified: true
+  Right_Knee:
+    can_interface: can1
+    motor_id: 5
+    motor_type: O3
+    direction: 1
+    id_verified: true
+    direction_verified: true
+  Right_Ankle:
+    can_interface: can1
+    motor_id: 10
+    motor_type: O2
+    direction: 1
+    id_verified: true
+    direction_verified: true
+last_zero_eeprom_status: saved
+last_zero_policy: models/rivet_standing.onnx
+last_zero_joint_count: 10
