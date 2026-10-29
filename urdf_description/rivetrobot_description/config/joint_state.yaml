@@ -1,0 +1,29 @@
+# Joint configuration for joint_state_publisher_gui
+
+joint_state_publisher:
+  ros__parameters:
+    # Joint names and default positions
+    zeros:
+      Left_Foot: 0.0
+      Left_Hip_Pitch: 0.0
+      Left_Hip_Roll: 0.0
+      Left_Hip_Yaw: 0.0
+      Left_Knee: 0.0
+      Right_Foot: 0.0
+      Right_Hip_Pitch: 0.0
+      Right_Hip_Roll: 0.0
+      Right_Hip_Yaw: 0.0
+      Right_Knee: 0.0
+
+    # Joints to publish
+    source_list:
+      - Left_Foot
+      - Left_Hip_Pitch
+      - Left_Hip_Roll
+      - Left_Hip_Yaw
+      - Left_Knee
+      - Right_Foot
+      - Right_Hip_Pitch
+      - Right_Hip_Roll
+      - Right_Hip_Yaw
+      - Right_Knee

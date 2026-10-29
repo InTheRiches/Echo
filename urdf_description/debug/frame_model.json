@@ -1,0 +1,2723 @@
+{
+  "cache_version": 1,
+  "config": {
+    "collision_auto_method": "primitive",
+    "collision_format": "stl",
+    "export_collision_mesh": true,
+    "export_visual_mesh": true,
+    "frame_convention": "ros",
+    "frame_overrides_filename": "frame_overrides.csv",
+    "include_debug": true,
+    "include_docs": true,
+    "include_launch": true,
+    "include_readme": true,
+    "include_robot_data_yaml": true,
+    "include_ros2_control": true,
+    "include_rviz": true,
+    "include_screenshot": true,
+    "mesh_refinement": "medium",
+    "output_dir": "/Users/haydenwilliams/Documents/Echo/urdf_description",
+    "override_explicit_collision": false,
+    "package_name": "rivetrobot_description",
+    "robot_prefix": "",
+    "ros2_control_command_interfaces": [
+      "position",
+      "velocity"
+    ],
+    "ros2_control_hardware_plugin": "mock_components/GenericSystem",
+    "ros2_control_update_rate": 100,
+    "use_xacro": false,
+    "verbosity": "verbose",
+    "visual_format": "dae",
+    "zip_name": "",
+    "zip_output": false
+  },
+  "model": {
+    "assemblies": {
+      "00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM": {
+        "children_assemblies": [
+          "GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM",
+          "GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM"
+        ],
+        "depth": 1,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM",
+        "parent_assembly": "imu"
+      },
+      "111_1_1_ASM_1_ASM_1_ASM": {
+        "children_assemblies": [],
+        "depth": 4,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "111_1_1_ASM_1_ASM_1_ASM",
+        "parent_assembly": "UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM"
+      },
+      "1_ASM_2_ASM_1_ASM_1_ASM": {
+        "children_assemblies": [],
+        "depth": 4,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "1_ASM_2_ASM_1_ASM_1_ASM",
+        "parent_assembly": "BRACKET_ASM_1_ASM_3_ASM_1_ASM"
+      },
+      "2_ASM_3_ASM_1_ASM_1_ASM": {
+        "children_assemblies": [],
+        "depth": 4,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "2_ASM_3_ASM_1_ASM_1_ASM",
+        "parent_assembly": "LOWER_HOU_ASM_1_ASM_2_ASM_1_ASM"
+      },
+      "810_805_518_516_8PIN_ASM_1_ASM_ASM": {
+        "children_assemblies": [
+          "PART2_ASM_1_ASM_1_ASM_1_ASM"
+        ],
+        "depth": 4,
+        "global_offset": [
+          0.02717146951095509,
+          0.020675,
+          0.053946675305123065
+        ],
+        "global_rotation": [
+          0.537196335156134,
+          -4.383895394222666e-17,
+          -0.843457229203011,
+          3.623013309976522e-17,
+          1.0000000000000009,
+          2.976878285875681e-16,
+          0.8434572292030103,
+          -4.1078705875987457e-16,
+          0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "810_805_518_516_8PIN_ASM_1_ASM_ASM",
+        "parent_assembly": "PCBA_ASM_ASM_1_ASM"
+      },
+      "BRACKET_ASM_1_ASM_3_ASM_1_ASM": {
+        "children_assemblies": [
+          "1_ASM_2_ASM_1_ASM_1_ASM"
+        ],
+        "depth": 3,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "BRACKET_ASM_1_ASM_3_ASM_1_ASM",
+        "parent_assembly": "GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM"
+      },
+      "GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM": {
+        "children_assemblies": [
+          "UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM",
+          "BRACKET_ASM_1_ASM_3_ASM_1_ASM",
+          "LOWER_HOU_ASM_1_ASM_2_ASM_1_ASM"
+        ],
+        "depth": 2,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM",
+        "parent_assembly": "00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM"
+      },
+      "GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM": {
+        "children_assemblies": [
+          "GEMINI_II_HEAD_ASSEMBLY_ASM_1_A_ASM",
+          "PCBA_ASM_ASM_1_ASM"
+        ],
+        "depth": 2,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM",
+        "parent_assembly": "00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM"
+      },
+      "GEMINI_II_HEAD_ASSEMBLY_ASM_1_A_ASM": {
+        "children_assemblies": [
+          "I02_ASM_3_ASM_1_ASM"
+        ],
+        "depth": 3,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "GEMINI_II_HEAD_ASSEMBLY_ASM_1_A_ASM",
+        "parent_assembly": "GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM"
+      },
+      "I02_ASM_3_ASM_1_ASM": {
+        "children_assemblies": [],
+        "depth": 4,
+        "global_offset": [
+          0.04948267031644669,
+          0.024999999999999994,
+          0.050407082303515045
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "I02_ASM_3_ASM_1_ASM",
+        "parent_assembly": "GEMINI_II_HEAD_ASSEMBLY_ASM_1_A_ASM"
+      },
+      "LOWER_HOU_ASM_1_ASM_2_ASM_1_ASM": {
+        "children_assemblies": [
+          "2_ASM_3_ASM_1_ASM_1_ASM"
+        ],
+        "depth": 3,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "LOWER_HOU_ASM_1_ASM_2_ASM_1_ASM",
+        "parent_assembly": "GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM"
+      },
+      "PART2_ASM_1_ASM_1_ASM_1_ASM": {
+        "children_assemblies": [],
+        "depth": 5,
+        "global_offset": [
+          0.02717146951095509,
+          0.020675,
+          0.053946675305123065
+        ],
+        "global_rotation": [
+          0.537196335156134,
+          -4.383895394222666e-17,
+          -0.843457229203011,
+          3.623013309976522e-17,
+          1.0000000000000009,
+          2.976878285875681e-16,
+          0.8434572292030103,
+          -4.1078705875987457e-16,
+          0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "PART2_ASM_1_ASM_1_ASM_1_ASM",
+        "parent_assembly": "810_805_518_516_8PIN_ASM_1_ASM_ASM"
+      },
+      "PCBA_ASM_ASM_1_ASM": {
+        "children_assemblies": [
+          "810_805_518_516_8PIN_ASM_1_ASM_ASM"
+        ],
+        "depth": 3,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "PCBA_ASM_ASM_1_ASM",
+        "parent_assembly": "GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM"
+      },
+      "SILICONE_PAD_2_ASM_1_ASM_1_ASM": {
+        "children_assemblies": [],
+        "depth": 4,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "SILICONE_PAD_2_ASM_1_ASM_1_ASM",
+        "parent_assembly": "UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM"
+      },
+      "UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM": {
+        "children_assemblies": [
+          "SILICONE_PAD_2_ASM_1_ASM_1_ASM",
+          "111_1_1_ASM_1_ASM_1_ASM"
+        ],
+        "depth": 3,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [
+          "imu"
+        ],
+        "name": "UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM",
+        "parent_assembly": "GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM"
+      },
+      "base_link": {
+        "children_assemblies": [],
+        "depth": 0,
+        "global_offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "global_rotation": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "joints": [],
+        "links": [],
+        "name": "base_link",
+        "parent_assembly": null
+      },
+      "imu": {
+        "children_assemblies": [
+          "00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM"
+        ],
+        "depth": 0,
+        "global_offset": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "global_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "joints": [],
+        "links": [],
+        "name": "imu",
+        "parent_assembly": null
+      },
+      "rivetrobot": {
+        "children_assemblies": [],
+        "depth": 0,
+        "global_offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "global_rotation": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "joints": [
+          "Right_Hip_Yaw",
+          "Left_Hip_Yaw",
+          "Rigid_14",
+          "Right_Hip_Roll",
+          "Left_Hip_Roll",
+          "Right_Hip_Pitch",
+          "Left_Hip_Pitch",
+          "Right_Knee",
+          "Left_Knee",
+          "Right_Foot",
+          "Left_Foot"
+        ],
+        "links": [
+          "Yaw_L",
+          "Yaw_R",
+          "base_link",
+          "thigh_right",
+          "foot_right",
+          "shin_right",
+          "arm_right",
+          "thigh_left",
+          "foot_left",
+          "shin_left",
+          "arm_left"
+        ],
+        "name": "rivetrobot",
+        "parent_assembly": null
+      }
+    },
+    "closing_joints": {},
+    "errors": [],
+    "joints": {
+      "Left_Foot": {
+        "axis": [
+          -6.123234153962445e-17,
+          1.0,
+          1.5284180038657104e-30
+        ],
+        "child_link": "foot_left",
+        "closing_source": "",
+        "fusion_source": "regular",
+        "is_closing": false,
+        "is_mount": false,
+        "is_passive": false,
+        "joint_type": "revolute",
+        "limits": {
+          "effort": 100.0,
+          "lower": -0.2617993877991494,
+          "upper": 0.5235987755982988,
+          "velocity": 1.0
+        },
+        "name": "Left_Foot",
+        "origin_global": [
+          -0.12479064992266313,
+          0.14225000000000027,
+          -0.24938212757074663
+        ],
+        "origin_method": "joint_minus_parent",
+        "origin_rpy": [
+          1.6270256170183477e-30,
+          -9.706686919711669e-32,
+          1.3990160127997114e-30
+        ],
+        "origin_xyz": [
+          0.0470923678470398,
+          -0.0005000000000000126,
+          0.12938726528227837
+        ],
+        "parent_link": "shin_left"
+      },
+      "Left_Hip_Pitch": {
+        "axis": [
+          -2.377548735059834e-16,
+          -1.0,
+          -5.6034174747141605e-16
+        ],
+        "child_link": "thigh_left",
+        "closing_source": "",
+        "fusion_source": "regular",
+        "is_closing": false,
+        "is_mount": false,
+        "is_passive": false,
+        "joint_type": "revolute",
+        "limits": {
+          "effort": 100.0,
+          "lower": -0.4363323129985824,
+          "upper": 1.0471975511965976,
+          "velocity": 1.0
+        },
+        "name": "Left_Hip_Pitch",
+        "origin_global": [
+          -0.09375031943875108,
+          0.14175000000000001,
+          -0.041106973304052524
+        ],
+        "origin_method": "joint_minus_parent",
+        "origin_rpy": [
+          -5.603417474714169e-16,
+          -0.0,
+          2.37754873505984e-16
+        ],
+        "origin_xyz": [
+          -0.008646714883620704,
+          -0.0692500000000002,
+          -0.001340720844964725
+        ],
+        "parent_link": "arm_left"
+      },
+      "Left_Hip_Roll": {
+        "axis": [
+          -1.0,
+          4.357625371653742e-15,
+          1.0148193521221713e-17
+        ],
+        "child_link": "arm_left",
+        "closing_source": "",
+        "fusion_source": "regular",
+        "is_closing": false,
+        "is_mount": false,
+        "is_passive": false,
+        "joint_type": "revolute",
+        "limits": {
+          "effort": 100.0,
+          "lower": -0.3490658503988659,
+          "upper": 0.3490658503988659,
+          "velocity": 1.0
+        },
+        "name": "Left_Hip_Roll",
+        "origin_global": [
+          -0.08510360455513037,
+          0.07249999999999981,
+          -0.04244769414901726
+        ],
+        "origin_method": "joint_minus_parent",
+        "origin_rpy": [
+          -3.141592653589793,
+          1.0148193521221507e-17,
+          1.2427952712890163e-33
+        ],
+        "origin_xyz": [
+          0.017999999999999614,
+          0.012499999999999414,
+          -0.05428411819018025
+        ],
+        "parent_link": "Yaw_L"
+      },
+      "Left_Hip_Yaw": {
+        "axis": [
+          1.5024335652646804e-30,
+          3.330669073875468e-16,
+          1.0
+        ],
+        "child_link": "Yaw_L",
+        "closing_source": "",
+        "fusion_source": "regular",
+        "is_closing": false,
+        "is_mount": false,
+        "is_passive": false,
+        "joint_type": "revolute",
+        "limits": {
+          "effort": 100.0,
+          "lower": -0.3490658503988659,
+          "upper": 0.2617993877991494,
+          "velocity": 1.0
+        },
+        "name": "Left_Hip_Yaw",
+        "origin_global": [
+          -0.10310360455513001,
+          0.0600000000000004,
+          0.011836424041163
+        ],
+        "origin_method": "joint_minus_parent",
+        "origin_rpy": [
+          -1.97215226305253e-31,
+          -0.0,
+          0.0
+        ],
+        "origin_xyz": [
+          -0.10310360455513001,
+          0.0600000000000004,
+          0.011836424041163
+        ],
+        "parent_link": "base_link"
+      },
+      "Left_Knee": {
+        "axis": [
+          -1.8217937907002096e-17,
+          1.0,
+          -9.290359923497535e-18
+        ],
+        "child_link": "shin_left",
+        "closing_source": "",
+        "fusion_source": "regular",
+        "is_closing": false,
+        "is_mount": false,
+        "is_passive": false,
+        "joint_type": "revolute",
+        "limits": {
+          "effort": 100.0,
+          "lower": -0.5235987755982988,
+          "upper": 0.6108652381980153,
+          "velocity": 1.0
+        },
+        "name": "Left_Knee",
+        "origin_global": [
+          -0.17188301776970427,
+          0.14175000000000032,
+          -0.1199948622884686
+        ],
+        "origin_method": "joint_minus_parent",
+        "origin_rpy": [
+          -4.734875376063717e-18,
+          -3.729594286593001e-18,
+          -1.7451763594469865e-17
+        ],
+        "origin_xyz": [
+          -0.07813269833095349,
+          -3.212780994577941e-16,
+          0.0788878889844161
+        ],
+        "parent_link": "thigh_left"
+      },
+      "Right_Foot": {
+        "axis": [
+          6.184351891766005e-17,
+          -1.0,
+          3.944304526105059e-31
+        ],
+        "child_link": "foot_right",
+        "closing_source": "",
+        "fusion_source": "regular",
+        "is_closing": false,
+        "is_mount": false,
+        "is_passive": false,
+        "joint_type": "revolute",
+        "limits": {
+          "effort": 100.0,
+          "lower": -0.2617993877991494,
+          "upper": 0.5235987755982988,
+          "velocity": 1.0
+        },
+        "name": "Right_Foot",
+        "origin_global": [
+          -0.12479064992266316,
+          -0.14275000000000063,
+          -0.24938212757074724
+        ],
+        "origin_method": "joint_minus_parent",
+        "origin_rpy": [
+          -7.509379680146989e-19,
+          6.317050217590134e-32,
+          -2.0291081559015085e-31
+        ],
+        "origin_xyz": [
+          0.04709236784704127,
+          -0.0009999999999998899,
+          -0.12938726528227845
+        ],
+        "parent_link": "shin_right"
+      },
+      "Right_Hip_Pitch": {
+        "axis": [
+          -5.607035519990574e-16,
+          -1.0,
+          5.603417474714174e-16
+        ],
+        "child_link": "thigh_right",
+        "closing_source": "",
+        "fusion_source": "regular",
+        "is_closing": false,
+        "is_mount": false,
+        "is_passive": false,
+        "joint_type": "revolute",
+        "limits": {
+          "effort": 100.0,
+          "lower": -1.0471975511965976,
+          "upper": 0.4363323129985824,
+          "velocity": 1.0
+        },
+        "name": "Right_Hip_Pitch",
+        "origin_global": [
+          -0.09375031943875102,
+          -0.1417500000000004,
+          -0.04110697330405253
+        ],
+        "origin_method": "joint_minus_parent",
+        "origin_rpy": [
+          5.60341747471417e-16,
+          -0.0,
+          5.607035519990574e-16
+        ],
+        "origin_xyz": [
+          -0.008646714883620718,
+          -0.06925000000000021,
+          0.0013407208449647268
+        ],
+        "parent_link": "arm_right"
+      },
+      "Right_Hip_Roll": {
+        "axis": [
+          -1.0,
+          -4.357625371653741e-15,
+          -1.0148193521221726e-17
+        ],
+        "child_link": "arm_right",
+        "closing_source": "",
+        "fusion_source": "regular",
+        "is_closing": false,
+        "is_mount": false,
+        "is_passive": false,
+        "joint_type": "revolute",
+        "limits": {
+          "effort": 100.0,
+          "lower": -0.3490658503988659,
+          "upper": 0.3490658503988659,
+          "velocity": 1.0
+        },
+        "name": "Right_Hip_Roll",
+        "origin_global": [
+          -0.0851036045551303,
+          -0.07250000000000019,
+          -0.04244769414901726
+        ],
+        "origin_method": "joint_minus_parent",
+        "origin_rpy": [
+          -4.4222025564524695e-32,
+          1.0148193521220986e-17,
+          -3.715626593172034e-62
+        ],
+        "origin_xyz": [
+          0.017999999999999614,
+          -0.012499999999999796,
+          -0.05428411819018025
+        ],
+        "parent_link": "Yaw_R"
+      },
+      "Right_Hip_Yaw": {
+        "axis": [
+          1.2585796030088606e-30,
+          3.33066907387547e-16,
+          1.0
+        ],
+        "child_link": "Yaw_R",
+        "closing_source": "",
+        "fusion_source": "regular",
+        "is_closing": false,
+        "is_mount": false,
+        "is_passive": false,
+        "joint_type": "revolute",
+        "limits": {
+          "effort": 100.0,
+          "lower": -0.2617993877991494,
+          "upper": 0.3490658503988659,
+          "velocity": 1.0
+        },
+        "name": "Right_Hip_Yaw",
+        "origin_global": [
+          -0.10310360455512994,
+          -0.0600000000000004,
+          0.011836424041163
+        ],
+        "origin_method": "joint_minus_parent",
+        "origin_rpy": [
+          0.0,
+          -0.0,
+          -7.88860905221012e-31
+        ],
+        "origin_xyz": [
+          -0.10310360455512994,
+          -0.0600000000000004,
+          0.011836424041163
+        ],
+        "parent_link": "base_link"
+      },
+      "Right_Knee": {
+        "axis": [
+          7.66174312532585e-19,
+          -1.0,
+          -1.312529251470046e-17
+        ],
+        "child_link": "shin_right",
+        "closing_source": "",
+        "fusion_source": "regular",
+        "is_closing": false,
+        "is_mount": false,
+        "is_passive": false,
+        "joint_type": "revolute",
+        "limits": {
+          "effort": 100.0,
+          "lower": -0.5235987755982988,
+          "upper": 0.6108652381980153,
+          "velocity": 1.0
+        },
+        "name": "Right_Knee",
+        "origin_global": [
+          -0.17188301776970444,
+          -0.14175000000000074,
+          -0.11999486228846877
+        ],
+        "origin_method": "joint_minus_parent",
+        "origin_rpy": [
+          8.999427848636735e-19,
+          6.162975822039155e-32,
+          -2.0290168279661202e-31
+        ],
+        "origin_xyz": [
+          -0.07813269833095342,
+          -3.3306690738754696e-16,
+          -0.07888788898441623
+        ],
+        "parent_link": "thigh_right"
+      },
+      "Rigid_14": {
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "child_link": "imu",
+        "closing_source": "",
+        "fusion_source": "regular",
+        "is_closing": false,
+        "is_mount": true,
+        "is_passive": false,
+        "joint_type": "fixed",
+        "limits": null,
+        "name": "Rigid_14",
+        "origin_global": [
+          0.041552235689944414,
+          0.017499999999999988,
+          0.04028232518866168
+        ],
+        "origin_method": "child_minus_parent",
+        "origin_rpy": [
+          2.137905888577389,
+          4.1078705875987457e-16,
+          1.5707963267948966
+        ],
+        "origin_xyz": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "parent_link": "base_link"
+      }
+    },
+    "links": {
+      "Yaw_L": {
+        "area_m2": 0.03900932055374284,
+        "assembly": "rivetrobot",
+        "bbox_max": [
+          -0.08160360455513041,
+          0.10349999999999966,
+          0.011836424041163003
+        ],
+        "bbox_min": [
+          -0.13560360455513026,
+          0.018999999999999656,
+          -0.0834476941490173
+        ],
+        "bbox_size": [
+          0.053999999999999854,
+          0.0845,
+          0.0952841181901803
+        ],
+        "body_count": 2,
+        "clean_name": "Yaw_L",
+        "collision": {
+          "mesh_path": "meshes/rivetrobot/Yaw_L_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": null,
+            "origin_rpy": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "origin_xyz": [
+              -0.10860360455513034,
+              0.06124999999999966,
+              -0.03580563505392715
+            ],
+            "shape": "box",
+            "size": [
+              0.053999999999999854,
+              0.0845,
+              0.0952841181901803
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          -0.08160360455513041,
+          0.10349999999999966,
+          0.011836424041163003
+        ],
+        "collision_bbox_min": [
+          -0.13560360455513026,
+          0.018999999999999656,
+          -0.0834476941490173
+        ],
+        "collision_bbox_size": [
+          0.053999999999999854,
+          0.0845,
+          0.0952841181901803
+        ],
+        "collision_body_count": 2,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 0.0002692816210102673,
+        "color_rgb": [
+          0.9803921568627451,
+          0.7137254901960784,
+          0.00392156862745098
+        ],
+        "com_link_local": [
+          -0.10920853487283565,
+          0.062231923332296664,
+          -0.04168617835052616
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          -3.552713678800507e-17,
+          0.01,
+          1.2325951644078345e-32
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 0.0005220559046138374,
+          "ixy": 1.0461285135975398e-06,
+          "ixz": -3.393596251590608e-06,
+          "iyy": 0.0003834017825603015,
+          "iyz": 1.9454831315830756e-06,
+          "izz": 0.0003745933036791733
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": false,
+        "mass_kg": 0.6317265903200577,
+        "material_name": "RS06",
+        "merged_member_paths": [],
+        "mesh_bake_offset": [
+          0.10310360455512996,
+          -0.0500000000000004,
+          -0.011836424041162998
+        ],
+        "mesh_collision": "meshes/rivetrobot/Yaw_L_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/rivetrobot/Yaw_L.dae",
+        "needs_mesh_bake": true,
+        "occurrence_path": "Yaw_L:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": null,
+        "source_world_rotation": [
+          0.9999999999999999,
+          0.0,
+          -8.593900738242044e-46,
+          0.0,
+          1.0,
+          1.972152263052529e-31,
+          0.0,
+          -1.9721522630525295e-31,
+          0.9999999999999999
+        ],
+        "urdf_name": "Yaw_L",
+        "volume_m3": 0.0002692816210102673,
+        "wants_accurate_collision": false
+      },
+      "Yaw_R": {
+        "area_m2": 0.03900932055374285,
+        "assembly": "rivetrobot",
+        "bbox_max": [
+          -0.08160360455513041,
+          -0.021500000000000342,
+          0.011836424041163003
+        ],
+        "bbox_min": [
+          -0.13560360455513026,
+          -0.10600000000000033,
+          -0.0834476941490173
+        ],
+        "bbox_size": [
+          0.053999999999999854,
+          0.08449999999999999,
+          0.0952841181901803
+        ],
+        "body_count": 2,
+        "clean_name": "Yaw_R",
+        "collision": {
+          "mesh_path": "meshes/rivetrobot/Yaw_R_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": null,
+            "origin_rpy": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "origin_xyz": [
+              -0.10860360455513034,
+              -0.06375000000000033,
+              -0.03580563505392715
+            ],
+            "shape": "box",
+            "size": [
+              0.053999999999999854,
+              0.08449999999999999,
+              0.0952841181901803
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          -0.08160360455513041,
+          -0.021500000000000342,
+          0.011836424041163003
+        ],
+        "collision_bbox_min": [
+          -0.13560360455513026,
+          -0.10600000000000033,
+          -0.0834476941490173
+        ],
+        "collision_bbox_size": [
+          0.053999999999999854,
+          0.08449999999999999,
+          0.0952841181901803
+        ],
+        "collision_body_count": 2,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 0.0002692816210102672,
+        "color_rgb": [
+          0.9803921568627451,
+          0.7137254901960784,
+          0.00392156862745098
+        ],
+        "com_link_local": [
+          -0.10920853487283566,
+          -0.06263087787160777,
+          -0.04168617835052616
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          3.552713678800507e-17,
+          -0.01,
+          0.0
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 0.0005220904828525962,
+          "ixy": 4.624519970818086e-07,
+          "ixz": -3.3935962515914755e-06,
+          "iyy": 0.0003834017825602998,
+          "iyz": -2.135783562105505e-06,
+          "izz": 0.0003746278819179282
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": false,
+        "mass_kg": 0.6317265903200574,
+        "material_name": "RS06",
+        "merged_member_paths": [],
+        "mesh_bake_offset": [
+          0.10310360455512997,
+          0.0500000000000004,
+          -0.011836424041162998
+        ],
+        "mesh_collision": "meshes/rivetrobot/Yaw_R_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/rivetrobot/Yaw_R.dae",
+        "needs_mesh_bake": true,
+        "occurrence_path": "Yaw_R:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": null,
+        "source_world_rotation": [
+          0.9999999999999999,
+          0.0,
+          0.0,
+          -7.888609052210118e-31,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.9999999999999999
+        ],
+        "urdf_name": "Yaw_R",
+        "volume_m3": 0.0002692816210102672,
+        "wants_accurate_collision": false
+      },
+      "arm_left": {
+        "area_m2": 0.01445274864711665,
+        "assembly": "rivetrobot",
+        "bbox_max": [
+          -0.07510361995017953,
+          -0.03216147216796774,
+          0.06594767838196258
+        ],
+        "bbox_min": [
+          -0.11728861995017911,
+          -0.12491147216796794,
+          0.018947678381962547
+        ],
+        "bbox_size": [
+          0.042184999999999584,
+          0.0927500000000002,
+          0.047000000000000035
+        ],
+        "body_count": 1,
+        "clean_name": "arm_left",
+        "collision": {
+          "mesh_path": "meshes/rivetrobot/arm_left_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": null,
+            "origin_rpy": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "origin_xyz": [
+              -0.09619611995017932,
+              -0.07853647216796784,
+              0.04244767838196256
+            ],
+            "shape": "box",
+            "size": [
+              0.042184999999999584,
+              0.0927500000000002,
+              0.047000000000000035
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          -0.07510361995017953,
+          -0.03216147216796774,
+          0.06594767838196258
+        ],
+        "collision_bbox_min": [
+          -0.11728861995017911,
+          -0.12491147216796794,
+          0.018947678381962547
+        ],
+        "collision_bbox_size": [
+          0.042184999999999584,
+          0.0927500000000002,
+          0.047000000000000035
+        ],
+        "collision_body_count": 1,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 3.6880821542306785e-05,
+        "color_rgb": [
+          0.8549019607843137,
+          0.34901960784313724,
+          0.34901960784313724
+        ],
+        "com_link_local": [
+          -0.08289148947329145,
+          -0.08494304250175652,
+          0.042326679862364214
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          1.5395049164368403e-08,
+          0.01683852783203207,
+          -1.5767054684090452e-08
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 0.0001054440920733483,
+          "ixy": -1.2191630984195604e-05,
+          "ixz": -2.497504688651832e-07,
+          "iyy": 2.3923439978005548e-05,
+          "iyz": -4.318760426507036e-07,
+          "izz": 9.735514729703929e-05
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": false,
+        "mass_kg": 0.09957821816422831,
+        "material_name": "Aluminum_6061",
+        "merged_member_paths": [],
+        "mesh_bake_offset": [
+          0.08510361995017954,
+          0.055661472167967734,
+          -0.04244767838196258
+        ],
+        "mesh_collision": "meshes/rivetrobot/arm_left_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/rivetrobot/arm_left.dae",
+        "needs_mesh_bake": true,
+        "occurrence_path": "arm_left:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": null,
+        "source_world_rotation": [
+          1.0,
+          -1.0131456685680119e-46,
+          -1.0148193521221508e-17,
+          1.242795271289014e-33,
+          -1.0,
+          1.2246467991473507e-16,
+          -1.0148193521221508e-17,
+          -1.2246467991473507e-16,
+          -1.0
+        ],
+        "urdf_name": "arm_left",
+        "volume_m3": 3.6880821542306785e-05,
+        "wants_accurate_collision": false
+      },
+      "arm_right": {
+        "area_m2": 0.014452731576860296,
+        "assembly": "rivetrobot",
+        "bbox_max": [
+          -0.07510361995017953,
+          -0.03216147216796774,
+          -0.018947678381962544
+        ],
+        "bbox_min": [
+          -0.11728861995017911,
+          -0.12491147216796794,
+          -0.06594767838196258
+        ],
+        "bbox_size": [
+          0.042184999999999584,
+          0.0927500000000002,
+          0.04700000000000004
+        ],
+        "body_count": 1,
+        "clean_name": "arm_right",
+        "collision": {
+          "mesh_path": "meshes/rivetrobot/arm_right_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": null,
+            "origin_rpy": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "origin_xyz": [
+              -0.09619611995017932,
+              -0.07853647216796784,
+              -0.04244767838196256
+            ],
+            "shape": "box",
+            "size": [
+              0.042184999999999584,
+              0.0927500000000002,
+              0.04700000000000004
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          -0.07510361995017953,
+          -0.03216147216796774,
+          -0.018947678381962544
+        ],
+        "collision_bbox_min": [
+          -0.11728861995017911,
+          -0.12491147216796794,
+          -0.06594767838196258
+        ],
+        "collision_bbox_size": [
+          0.042184999999999584,
+          0.0927500000000002,
+          0.04700000000000004
+        ],
+        "collision_body_count": 1,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 3.688073242065302e-05,
+        "color_rgb": [
+          0.8549019607843137,
+          0.34901960784313724,
+          0.34901960784313724
+        ],
+        "com_link_local": [
+          -0.08289146295559374,
+          -0.08494295628865689,
+          -0.04232666353712067
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          1.5395049235422675e-08,
+          -0.016838527832032452,
+          -1.576705467520867e-08
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 0.0001054437542513262,
+          "ixy": -1.2191536769686254e-05,
+          "ixz": 2.4976800956129233e-07,
+          "iyy": 2.3923343066928077e-05,
+          "iyz": 4.3193446638936954e-07,
+          "izz": 9.735477552705232e-05
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": false,
+        "mass_kg": 0.09957797753576315,
+        "material_name": "Aluminum_6061",
+        "merged_member_paths": [],
+        "mesh_bake_offset": [
+          0.08510361995017954,
+          0.05566147216796774,
+          0.04244767838196258
+        ],
+        "mesh_collision": "meshes/rivetrobot/arm_right_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/rivetrobot/arm_right.dae",
+        "needs_mesh_bake": true,
+        "occurrence_path": "arm_right:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": null,
+        "source_world_rotation": [
+          1.0,
+          -3.7129793167809994e-62,
+          1.0148193521220988e-17,
+          -3.7156265931720334e-62,
+          1.0,
+          4.4222025564524695e-32,
+          -1.0148193521220988e-17,
+          -4.4222025564524695e-32,
+          1.0
+        ],
+        "urdf_name": "arm_right",
+        "volume_m3": 3.688073242065302e-05,
+        "wants_accurate_collision": false
+      },
+      "base_link": {
+        "area_m2": 1.30707144888602,
+        "assembly": "rivetrobot",
+        "bbox_max": [
+          0.059528561430829116,
+          0.10844268372397302,
+          0.11465230360031102
+        ],
+        "bbox_min": [
+          -0.29200586618060403,
+          -0.10844268372397302,
+          -0.127107694149017
+        ],
+        "bbox_size": [
+          0.35153442761143316,
+          0.21688536744794604,
+          0.241759997749328
+        ],
+        "body_count": 25,
+        "clean_name": "base_link",
+        "collision": {
+          "mesh_path": "meshes/rivetrobot/base_link_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": [
+              -0.13254540135345866,
+              0.9815429281417926,
+              -0.13785933698841923,
+              -0.988332708858843,
+              -0.12035125981688614,
+              0.09334897353602765,
+              0.07503447993950639,
+              0.14862386913051462,
+              0.986042987067442
+            ],
+            "origin_rpy": [
+              0.14960143717806942,
+              -0.07510506844706089,
+              -1.7041109828956367
+            ],
+            "origin_xyz": [
+              -0.10373995897869094,
+              0.059623172527655414,
+              0.037931836516831303
+            ],
+            "shape": "box",
+            "size": [
+              0.08709943477333078,
+              0.08772430210446581,
+              0.05772429612460486
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          0.059528561430829116,
+          0.10844268372397302,
+          0.11465230360031102
+        ],
+        "collision_bbox_min": [
+          -0.29200586618060403,
+          -0.10844268372397302,
+          -0.127107694149017
+        ],
+        "collision_bbox_size": [
+          0.35153442761143316,
+          0.21688536744794604,
+          0.241759997749328
+        ],
+        "collision_body_count": 32,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 0.0038925521858157305,
+        "color_rgb": [
+          0.19607843137254902,
+          0.19607843137254902,
+          0.19607843137254902
+        ],
+        "com_link_local": [
+          -0.1327113912752467,
+          -8.705299075041206e-05,
+          0.013762386568912701
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 0.05520864280569873,
+          "ixy": -4.16128365538116e-05,
+          "ixz": -0.005509146647887413,
+          "iyy": 0.11694751090542198,
+          "iyz": -1.2801534184505334e-05,
+          "izz": 0.11803824565862758
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": true,
+        "mass_kg": 12.524043971189805,
+        "material_name": "Steel",
+        "merged_member_paths": [
+          "base_link:1",
+          "base_link:1+BatteryMount:1"
+        ],
+        "mesh_bake_offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_collision": "meshes/rivetrobot/base_link_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/rivetrobot/base_link.dae",
+        "needs_mesh_bake": false,
+        "occurrence_path": "base_link:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": "base_link",
+        "source_world_rotation": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "urdf_name": "base_link",
+        "volume_m3": 0.0038925521858157305,
+        "wants_accurate_collision": false
+      },
+      "foot_left": {
+        "area_m2": 0.056512711833526,
+        "assembly": "rivetrobot",
+        "bbox_max": [
+          -0.016226741270687094,
+          -0.08836054500579721,
+          0.314797374763728
+        ],
+        "bbox_min": [
+          -0.186226755576314,
+          -0.14241147026061904,
+          0.22039373339175555
+        ],
+        "bbox_size": [
+          0.1700000143056269,
+          0.05405092525482183,
+          0.09440364137197244
+        ],
+        "body_count": 1,
+        "clean_name": "foot_left",
+        "collision": {
+          "mesh_path": "meshes/rivetrobot/foot_left_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": null,
+            "origin_rpy": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "origin_xyz": [
+              -0.10122674842350055,
+              -0.11538600763320812,
+              0.26759555407774177
+            ],
+            "shape": "box",
+            "size": [
+              0.1700000143056269,
+              0.05405092525482183,
+              0.09440364137197244
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          -0.016226741270687094,
+          -0.08836054500579721,
+          0.314797374763728
+        ],
+        "collision_bbox_min": [
+          -0.186226755576314,
+          -0.14241147026061904,
+          0.22039373339175555
+        ],
+        "collision_bbox_size": [
+          0.1700000143056269,
+          0.05405092525482183,
+          0.09440364137197244
+        ],
+        "collision_body_count": 1,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 0.00023909646976735357,
+        "color_rgb": [
+          0.3137254901960784,
+          0.3137254901960784,
+          0.3137254901960784
+        ],
+        "com_link_local": [
+          -0.10192142558602688,
+          -0.12384380653208425,
+          0.2877007072981578
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          0.00311664137159678,
+          0.01683852783203235,
+          -0.000488393922457362
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 5.1072555632257315e-05,
+          "ixy": -5.018783875922477e-06,
+          "ixz": -6.861592123261814e-06,
+          "iyy": 0.00017116816251596442,
+          "iyz": -1.1505180392808092e-05,
+          "izz": 0.00015332549479464422
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": false,
+        "mass_kg": 0.06606235459671979,
+        "material_name": "Foot",
+        "merged_member_paths": [],
+        "mesh_bake_offset": [
+          0.1279072912942595,
+          0.125411472167968,
+          -0.24889373364828837
+        ],
+        "mesh_collision": "meshes/rivetrobot/foot_left_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/rivetrobot/foot_left.dae",
+        "needs_mesh_bake": true,
+        "occurrence_path": "foot_left:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": null,
+        "source_world_rotation": [
+          0.9999999999999967,
+          -2.2030310991151267e-16,
+          -1.3877787807814503e-17,
+          -2.2030310991151306e-16,
+          -1.0,
+          -4.426119429327461e-16,
+          -1.3877787807814503e-17,
+          4.4261194293274617e-16,
+          -0.9999999999999967
+        ],
+        "urdf_name": "foot_left",
+        "volume_m3": 0.00023909646976735357,
+        "wants_accurate_collision": false
+      },
+      "foot_right": {
+        "area_m2": 0.056512711833525985,
+        "assembly": "rivetrobot",
+        "bbox_max": [
+          -0.016226741270687094,
+          -0.08836054500579722,
+          -0.22039373339175555
+        ],
+        "bbox_min": [
+          -0.186226755576314,
+          -0.14241147026061904,
+          -0.314797374763728
+        ],
+        "bbox_size": [
+          0.1700000143056269,
+          0.054050925254821816,
+          0.09440364137197244
+        ],
+        "body_count": 1,
+        "clean_name": "foot_right",
+        "collision": {
+          "mesh_path": "meshes/rivetrobot/foot_right_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": null,
+            "origin_rpy": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "origin_xyz": [
+              -0.10122674842350055,
+              -0.11538600763320814,
+              -0.26759555407774177
+            ],
+            "shape": "box",
+            "size": [
+              0.1700000143056269,
+              0.054050925254821816,
+              0.09440364137197244
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          -0.016226741270687094,
+          -0.08836054500579722,
+          -0.22039373339175555
+        ],
+        "collision_bbox_min": [
+          -0.186226755576314,
+          -0.14241147026061904,
+          -0.314797374763728
+        ],
+        "collision_bbox_size": [
+          0.1700000143056269,
+          0.054050925254821816,
+          0.09440364137197244
+        ],
+        "collision_body_count": 1,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 0.00023909646976013805,
+        "color_rgb": [
+          0.3137254901960784,
+          0.3137254901960784,
+          0.3137254901960784
+        ],
+        "com_link_local": [
+          -0.10192142558626971,
+          -0.12384380653277945,
+          -0.287700707297703
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          0.0031166413715971726,
+          -0.017338527832032713,
+          -0.000488393922457136
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 5.107255563068045e-05,
+          "ixy": -5.0187838755529806e-06,
+          "ixz": 6.86159212301982e-06,
+          "iyy": 0.0001711681625149895,
+          "iyz": 1.1505180392115937e-05,
+          "izz": 0.00015332549479339088
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": false,
+        "mass_kg": 0.06606235459472613,
+        "material_name": "Foot",
+        "merged_member_paths": [],
+        "mesh_bake_offset": [
+          0.1279072912942604,
+          0.12541147216796797,
+          0.24889373364829004
+        ],
+        "mesh_collision": "meshes/rivetrobot/foot_right_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/rivetrobot/foot_right.dae",
+        "needs_mesh_bake": true,
+        "occurrence_path": "foot_right:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": null,
+        "source_world_rotation": [
+          1.0,
+          -5.607035519990578e-16,
+          1.014819352122124e-17,
+          5.607035519990574e-16,
+          1.0,
+          -5.60490752288267e-16,
+          -1.0148193521220988e-17,
+          5.604907522882668e-16,
+          1.0
+        ],
+        "urdf_name": "foot_right",
+        "volume_m3": 0.00023909646976013805,
+        "wants_accurate_collision": false
+      },
+      "imu": {
+        "area_m2": 0.04132793899376632,
+        "assembly": "UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM",
+        "bbox_max": [
+          0.04472988810130593,
+          0.012512342791530944,
+          0.015754224010260037
+        ],
+        "bbox_min": [
+          -0.04472988829526839,
+          -0.01280000000000002,
+          -0.018650000000000052
+        ],
+        "bbox_size": [
+          0.08945977639657432,
+          0.025312342791530964,
+          0.03440422401026009
+        ],
+        "body_count": 1,
+        "clean_name": "00_2_35673_1_1",
+        "collision": {
+          "mesh_path": "meshes/UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM/imu_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": [
+              -0.999741458898395,
+              0.022695976439989735,
+              -0.0013813084898907512,
+              -0.022736757953417976,
+              -0.9972140495165088,
+              0.07104350276171333,
+              0.00023494143205870187,
+              0.07105654157304105,
+              0.9974722616204433
+            ],
+            "origin_rpy": [
+              0.07111647426554717,
+              -0.00023494143422006427,
+              -3.118853935553161
+            ],
+            "origin_xyz": [
+              -1.2839216402532199e-05,
+              0.0006435004503003844,
+              -0.002045339699988063
+            ],
+            "shape": "box",
+            "size": [
+              0.08936078109227674,
+              0.02666040245344738,
+              0.028156732613973848
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          0.04472988810130593,
+          0.012512342791530944,
+          0.015754224010260037
+        ],
+        "collision_bbox_min": [
+          -0.04472988829526839,
+          -0.01280000000000002,
+          -0.018650000000000052
+        ],
+        "collision_bbox_size": [
+          0.08945977639657432,
+          0.025312342791530964,
+          0.03440422401026009
+        ],
+        "collision_body_count": 38,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 2.89654239560858e-05,
+        "color_rgb": [
+          0.6274509803921569,
+          0.6274509803921569,
+          0.6274509803921569
+        ],
+        "com_link_local": [
+          -0.00011055114265840141,
+          -0.0001612052532754961,
+          -0.004071897097477148
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          0.04948267031644669,
+          -2.6645352591003756e-17,
+          0.05040708230351505
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 3.181532975836982e-05,
+          "ixy": 1.2043925389307965e-07,
+          "ixz": -2.547202672974095e-07,
+          "iyy": 0.00016252856949561925,
+          "iyz": 8.91670655359314e-08,
+          "izz": 0.000155216325681415
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": true,
+        "mass_kg": 0.22737857805527345,
+        "material_name": "Steel",
+        "merged_member_paths": [
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+BRACKET_ASM_1_ASM_3_ASM_1_ASM:1+1_ASM_2_ASM_1_ASM_1_ASM:1+SCREW_CM2X035-035X1_1_3_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+BRACKET_ASM_1_ASM_3_ASM_1_ASM:1+1_ASM_2_ASM_1_ASM_1_ASM:1+SCREW_CM2X035-035X1_1_3_1:2",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+BRACKET_ASM_1_ASM_3_ASM_1_ASM:1+BRACKET_MAX_2_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+LOWER_HOU_ASM_1_ASM_2_ASM_1_ASM:1+2_ASM_3_ASM_1_ASM_1_ASM:1+SCREW_CM2X035-035X1_1_3_1:3",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+LOWER_HOU_ASM_1_ASM_2_ASM_1_ASM:1+2_ASM_3_ASM_1_ASM_1_ASM:1+SCREW_CM2X035-035X1_1_3_1:4",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+LOWER_HOU_ASM_1_ASM_2_ASM_1_ASM:1+2_ASM_3_ASM_1_ASM_1_ASM:1+SCREW_CM2X035-035X1_1_3_1:5",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+LOWER_HOU_ASM_1_ASM_2_ASM_1_ASM:1+2_ASM_3_ASM_1_ASM_1_ASM:1+SCREW_CM2X035-035X1_1_3_1:6",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+LOWER_HOU_ASM_1_ASM_2_ASM_1_ASM:1+PRT0002_2_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM:1+00_2-35673_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM:1+00_2-36696_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM:1+111_1_1_ASM_1_ASM_1_ASM:1+111_1_1_1_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM:1+111_1_1_ASM_1_ASM_1_ASM:1+111_1_1_2_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM:1+111_1_1_ASM_1_ASM_1_ASM:1+111_1_1_3_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM:1+SEALING_SILICA_GEL-AG_2_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM:1+SILICONE_PAD_2_ASM_1_ASM_1_ASM:1+SILICONE_PAD_2_1_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM:1+SILICONE_PAD_2_ASM_1_ASM_1_ASM:1+SILICONE_PAD_2_2_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM:1+GEMINI_II_HEAD_ASSEMBLY_ASM_1_A_ASM:1+LENS__1_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM:1+GEMINI_II_HEAD_ASSEMBLY_ASM_1_A_ASM:1+OE_1_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM:1+GEMINI_II_HEAD_ASSEMBLY_ASM_1_A_ASM:1+_I02_ASM_3_ASM_1_ASM:1+DS-AS_FOR_1_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM:1+GEMINI_II_HEAD_ASSEMBLY_ASM_1_A_ASM:1+_I02_ASM_3_ASM_1_ASM:2+DS-AS_FOR_1_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM:1+_PCBA_ASM_ASM_1_ASM:1+810_805_518_516_8PIN_ASM_1_ASM__ASM:1+PART2_ASM_1_ASM_1_ASM_1_ASM:1+810_805_518_516_8PIN_1_1_2_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM:1+_PCBA_ASM_ASM_1_ASM:1+CX-24P_ASM_3_1_1:1",
+          "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_STACK_ASM_3_ASM_1_AS_ASM:1+_PCBA_ASM_ASM_1_ASM:1+GEMINI_336_PCBA_2_1_1:1"
+        ],
+        "mesh_bake_offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_collision": "meshes/UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM/imu_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM/imu.dae",
+        "needs_mesh_bake": false,
+        "occurrence_path": "imu:1+00_GEMINI_336_3D_ALL_ASM_ASM_1_ASM:1+GEMINI_336_MD_ASM_3_ASM_1_ASM_1_ASM:1+UPPER_HOUS_ASM_1_ASM_2_ASM_1_ASM:1+00_2-35673_1_1:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": "imu",
+        "source_world_rotation": [
+          -4.383895394222666e-17,
+          0.537196335156134,
+          0.843457229203011,
+          1.0000000000000009,
+          3.623013309976522e-17,
+          -2.976878285875681e-16,
+          -4.1078705875987457e-16,
+          0.8434572292030103,
+          -0.5371963351561345
+        ],
+        "urdf_name": "imu",
+        "volume_m3": 2.89654239560858e-05,
+        "wants_accurate_collision": false
+      },
+      "shin_left": {
+        "area_m2": 0.07210586642573617,
+        "assembly": "rivetrobot",
+        "bbox_max": [
+          -0.08490729130269764,
+          -0.08051147216796839,
+          0.29189373365386423
+        ],
+        "bbox_min": [
+          -0.21035435419950566,
+          -0.12591147216796997,
+          0.09200646836601138
+        ],
+        "bbox_size": [
+          0.12544706289680801,
+          0.04540000000000158,
+          0.19988726528785283
+        ],
+        "body_count": 5,
+        "clean_name": "shin_left",
+        "collision": {
+          "mesh_path": "meshes/rivetrobot/shin_left_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": [
+              0.7489625666355514,
+              -0.6624152375183444,
+              -0.0161594208498468,
+              -0.002614371860681809,
+              0.021433062069009613,
+              -0.9997668672796274,
+              0.6626071527220796,
+              0.7488302056900892,
+              0.014320761421009708
+            ],
+            "origin_rpy": [
+              1.5516744807056282,
+              -0.7242944217434244,
+              -0.0034906434030025552
+            ],
+            "origin_xyz": [
+              -0.12780158060222557,
+              -0.10129810335093807,
+              0.24881132285421492
+            ],
+            "shape": "cylinder",
+            "size": [
+              0.03940489126978752,
+              0.0,
+              0.04291763725717904
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          -0.08490729130269764,
+          -0.08051147216796839,
+          0.29189373365386423
+        ],
+        "collision_bbox_min": [
+          -0.21035435419950566,
+          -0.12591147216796997,
+          0.09200646836601138
+        ],
+        "collision_bbox_size": [
+          0.12544706289680801,
+          0.04540000000000158,
+          0.19988726528785283
+        ],
+        "collision_body_count": 5,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 0.00024353942609417085,
+        "color_rgb": [
+          0.5372549019607843,
+          0.5372549019607843,
+          0.5372549019607843
+        ],
+        "com_link_local": [
+          -0.14598817468321973,
+          -0.10819935037288318,
+          0.20226680215925086
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          0.003116641371596739,
+          0.01683852783203235,
+          -0.0004883939224574663
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 0.0028616284969729885,
+          "ixy": -9.203790756310594e-05,
+          "ixz": -0.0009393033501167158,
+          "iyy": 0.003353420894880582,
+          "iyz": -0.0002478564753577335,
+          "izz": 0.0006852758198514705
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": false,
+        "mass_kg": 0.708394240326111,
+        "material_name": "RS02",
+        "merged_member_paths": [],
+        "mesh_bake_offset": [
+          0.17499965914130045,
+          0.12491147216796798,
+          -0.11950646836601068
+        ],
+        "mesh_collision": "meshes/rivetrobot/shin_left_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/rivetrobot/shin_left.dae",
+        "needs_mesh_bake": true,
+        "occurrence_path": "shin_left:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": null,
+        "source_world_rotation": [
+          0.9999999999999967,
+          -2.203031099115124e-16,
+          -1.3877787807814503e-17,
+          -2.2030310991151306e-16,
+          -1.0,
+          -4.426119429327463e-16,
+          -1.3877787807814503e-17,
+          4.4261194293274607e-16,
+          -0.9999999999999967
+        ],
+        "urdf_name": "shin_left",
+        "volume_m3": 0.00024353942609417085,
+        "wants_accurate_collision": false
+      },
+      "shin_right": {
+        "area_m2": 0.0721058747355803,
+        "assembly": "rivetrobot",
+        "bbox_max": [
+          -0.08490729130269764,
+          -0.08051147216796797,
+          -0.09200646836601138
+        ],
+        "bbox_min": [
+          -0.21035435419950566,
+          -0.12591147216796997,
+          -0.29189373365386423
+        ],
+        "bbox_size": [
+          0.12544706289680801,
+          0.045400000000001994,
+          0.19988726528785283
+        ],
+        "body_count": 5,
+        "clean_name": "shin_right",
+        "collision": {
+          "mesh_path": "meshes/rivetrobot/shin_right_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": [
+              -0.7504400816366064,
+              -0.6607399963017293,
+              -0.016196949108831307,
+              0.0024273028411523714,
+              0.021750649808196697,
+              -0.9997604800320118,
+              0.660934030046994,
+              -0.7502996511528657,
+              -0.014718743347426176
+            ],
+            "origin_rpy": [
+              -1.590410964328094,
+              -0.7220627163229938,
+              3.1383581590101928
+            ],
+            "origin_xyz": [
+              -0.1278012264177981,
+              -0.10129926470223723,
+              -0.2488107359553978
+            ],
+            "shape": "cylinder",
+            "size": [
+              0.03940440879312634,
+              0.0,
+              0.04293842752154253
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          -0.08490729130269764,
+          -0.08051147216796797,
+          -0.09200646836601138
+        ],
+        "collision_bbox_min": [
+          -0.21035435419950566,
+          -0.12591147216796997,
+          -0.29189373365386423
+        ],
+        "collision_bbox_size": [
+          0.12544706289680801,
+          0.045400000000001994,
+          0.19988726528785283
+        ],
+        "collision_body_count": 5,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 0.00024353906567791482,
+        "color_rgb": [
+          0.5372549019607843,
+          0.5372549019607843,
+          0.5372549019607843
+        ],
+        "com_link_local": [
+          -0.14598820287922779,
+          -0.1081993743584504,
+          -0.2022667497689057
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          0.0031166413715970984,
+          -0.016838527832032706,
+          -0.0004883939224571901
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 0.0028616259915352285,
+          "ixy": -9.203748396420866e-05,
+          "ixz": 0.0009393024206052238,
+          "iyy": 0.0033534178845908286,
+          "iyz": 0.00024785568603737616,
+          "izz": 0.0006852745734906122
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": false,
+        "mass_kg": 0.7083934402119654,
+        "material_name": "RS02",
+        "merged_member_paths": [],
+        "mesh_bake_offset": [
+          0.1749996591413016,
+          0.124911472167968,
+          0.11950646836601152
+        ],
+        "mesh_collision": "meshes/rivetrobot/shin_right_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/rivetrobot/shin_right.dae",
+        "needs_mesh_bake": true,
+        "occurrence_path": "shin_right:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": null,
+        "source_world_rotation": [
+          1.0,
+          -5.607035519990576e-16,
+          1.0148193521221239e-17,
+          5.607035519990574e-16,
+          1.0,
+          -5.612416902562815e-16,
+          -1.0148193521220988e-17,
+          5.612416902562811e-16,
+          1.0
+        ],
+        "urdf_name": "shin_right",
+        "volume_m3": 0.00024353906567791482,
+        "wants_accurate_collision": false
+      },
+      "thigh_left": {
+        "area_m2": 0.20657109288781117,
+        "assembly": "rivetrobot",
+        "bbox_max": [
+          -0.042066970670743054,
+          -0.12491147216796769,
+          0.1743047729192976
+        ],
+        "bbox_min": [
+          -0.22927495060202627,
+          -0.1815114721679685,
+          -0.014181410758010467
+        ],
+        "bbox_size": [
+          0.1872079799312832,
+          0.056600000000000816,
+          0.18848618367730807
+        ],
+        "body_count": 4,
+        "clean_name": "thigh_left",
+        "collision": {
+          "mesh_path": "meshes/rivetrobot/thigh_left_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": [
+              -0.6467746940454209,
+              -0.761594969371634,
+              -0.0406890374704591,
+              0.04492846686933448,
+              0.015211027842058808,
+              -0.998874395255359,
+              0.7613566365424442,
+              -0.6478747774530262,
+              0.02437918647060129
+            ],
+            "origin_rpy": [
+              -1.5331845995079256,
+              -0.8654030505232266,
+              3.0722386587373522
+            ],
+            "origin_xyz": [
+              -0.1349272022214733,
+              -0.14722122295285295,
+              0.07930694112666371
+            ],
+            "shape": "box",
+            "size": [
+              0.21957952182370905,
+              0.11808863942436257,
+              0.05374971268386805
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          -0.042066970670743054,
+          -0.12491147216796769,
+          0.1743047729192976
+        ],
+        "collision_bbox_min": [
+          -0.22927495060202627,
+          -0.1815114721679685,
+          -0.014181410758010467
+        ],
+        "collision_bbox_size": [
+          0.1872079799312832,
+          0.056600000000000816,
+          0.18848618367730807
+        ],
+        "collision_body_count": 4,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 0.00026451432202433405,
+        "color_rgb": [
+          0.9607843137254902,
+          0.9607843137254902,
+          0.9647058823529412
+        ],
+        "com_link_local": [
+          -0.1358983841827917,
+          -0.14852540396483022,
+          0.07989277319701373
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          0.003116641371596717,
+          0.016838527832032296,
+          -0.0004883939224574531
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 0.00473452742541982,
+          "ixy": -4.784500299871708e-06,
+          "ixz": 0.002825446077674064,
+          "iyy": 0.008222553604325646,
+          "iyz": -6.231478428545684e-06,
+          "izz": 0.0046917919356368465
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": false,
+        "mass_kg": 1.847482191290078,
+        "material_name": "Aluminum_6061",
+        "merged_member_paths": [],
+        "mesh_bake_offset": [
+          0.09686696081034758,
+          0.1249114721679677,
+          -0.04061857938159492
+        ],
+        "mesh_collision": "meshes/rivetrobot/thigh_left_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/rivetrobot/thigh_left.dae",
+        "needs_mesh_bake": true,
+        "occurrence_path": "thigh_left:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": null,
+        "source_world_rotation": [
+          0.9999999999999976,
+          -2.377548735059836e-16,
+          -1.0148193521221599e-17,
+          -2.377548735059834e-16,
+          -1.0,
+          -4.378770675566813e-16,
+          -1.0148193521221513e-17,
+          4.378770675566805e-16,
+          -0.9999999999999976
+        ],
+        "urdf_name": "thigh_left",
+        "volume_m3": 0.00026451432202433405,
+        "wants_accurate_collision": false
+      },
+      "thigh_right": {
+        "area_m2": 0.2065715936957112,
+        "assembly": "rivetrobot",
+        "bbox_max": [
+          -0.042066970670743054,
+          -0.12491147216796775,
+          0.014181410758010458
+        ],
+        "bbox_min": [
+          -0.22927495060202627,
+          -0.1815114721679685,
+          -0.1743047729192976
+        ],
+        "bbox_size": [
+          0.1872079799312832,
+          0.05660000000000076,
+          0.18848618367730807
+        ],
+        "body_count": 4,
+        "clean_name": "thigh_right",
+        "collision": {
+          "mesh_path": "meshes/rivetrobot/thigh_right_collision.stl",
+          "origin_rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "origin_xyz": null,
+          "primitive": {
+            "orientation_matrix": [
+              0.6467746940454209,
+              -0.7615949693716337,
+              -0.04068903747045928,
+              -0.04492846686933448,
+              0.015211027842059027,
+              -0.998874395255359,
+              0.761356636542444,
+              0.6478747774530262,
+              -0.024379186470601152
+            ],
+            "origin_rpy": [
+              1.6084080540818675,
+              -0.8654030505232265,
+              -0.06935399485244119
+            ],
+            "origin_xyz": [
+              -0.13492720222147325,
+              -0.14722122295285292,
+              -0.07930694112666369
+            ],
+            "shape": "box",
+            "size": [
+              0.219579521823709,
+              0.11808863942436254,
+              0.053749712683868106
+            ]
+          },
+          "source": "primitive"
+        },
+        "collision_bbox_max": [
+          -0.042066970670743054,
+          -0.12491147216796775,
+          0.014181410758010458
+        ],
+        "collision_bbox_min": [
+          -0.22927495060202627,
+          -0.1815114721679685,
+          -0.1743047729192976
+        ],
+        "collision_bbox_size": [
+          0.1872079799312832,
+          0.05660000000000076,
+          0.18848618367730807
+        ],
+        "collision_body_count": 4,
+        "collision_body_names": [],
+        "collision_excluded_body_names": [],
+        "collision_override": "",
+        "collision_volume_m3": 0.0002645142501003205,
+        "color_rgb": [
+          0.9607843137254902,
+          0.9607843137254902,
+          0.9647058823529412
+        ],
+        "com_link_local": [
+          -0.1358980368635613,
+          -0.1485253985700589,
+          -0.07989219752992659
+        ],
+        "frame_rebase_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame_rule": "keep",
+        "global_position": [
+          0.003116641371596949,
+          -0.016838527832032654,
+          -0.0004883939224573478
+        ],
+        "has_collision_exclusions": false,
+        "has_explicit_collision": false,
+        "has_visual_mesh": true,
+        "inertia_at_com": {
+          "ixx": 0.0047345223280619506,
+          "ixy": -4.772166550280621e-06,
+          "ixz": -0.0028254289616487724,
+          "iyy": 0.008222514449502095,
+          "iyz": 6.251956281073945e-06,
+          "izz": 0.0046917574851561145
+        },
+        "inertial_origin_xyz": null,
+        "is_empty": false,
+        "is_frame_only": false,
+        "is_merged": false,
+        "mass_kg": 1.8474816456745111,
+        "material_name": "Aluminum_6061",
+        "merged_member_paths": [],
+        "mesh_bake_offset": [
+          0.09686696081034804,
+          0.12491147216796772,
+          0.04061857938159511
+        ],
+        "mesh_collision": "meshes/rivetrobot/thigh_right_collision.stl",
+        "mesh_collision_input": "",
+        "mesh_origin_rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mesh_visual": "meshes/rivetrobot/thigh_right.dae",
+        "needs_mesh_bake": true,
+        "occurrence_path": "thigh_right:1",
+        "rigid_group_collision_offset": null,
+        "rigid_group_collision_path": null,
+        "rigid_group_name": null,
+        "source_world_rotation": [
+          1.0,
+          -5.607035519990576e-16,
+          1.014819352122124e-17,
+          5.607035519990574e-16,
+          1.0,
+          -5.603417474714174e-16,
+          -1.0148193521220988e-17,
+          5.60341747471417e-16,
+          1.0
+        ],
+        "urdf_name": "thigh_right",
+        "volume_m3": 0.0002645142501003205,
+        "wants_accurate_collision": false
+      }
+    },
+    "name": "rivetrobot",
+    "root_link": "base_link",
+    "warnings": []
+  }
+}
