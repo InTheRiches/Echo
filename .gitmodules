@@ -1,0 +1,6 @@
+[submodule "rivet-mjLab"]
+	path = rivet-mjLab
+	url = https://github.com/InTheRiches/rivet-mjLab
+[submodule "rivet-deploy"]
+	path = rivet-deploy
+	url = https://github.com/InTheRiches/rivet-deploy
